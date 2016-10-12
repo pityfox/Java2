@@ -22,8 +22,8 @@ public class Client {
 	private Agence agence;
 	//ManytoMany
 //	private List<Agence> agences = new ArrayList<Agence>();
-//	private List<Compte> comptes = new ArrayList<Compte>();
-	private List<CompteClient> compteClient = new ArrayList<CompteClient>();
+	private List<Compte> comptes = new ArrayList<Compte>();
+	
 	
 	// -------------- Constructeurs --------------
 	public Client(){
@@ -149,35 +149,21 @@ public class Client {
 //		this.agences.remove(agence);
 //	}
 	
-//	@ManyToMany
-//	@JoinTable({
-//		
-//	})
-//	public List<Compte> getComptes() {
-//		return comptes;
-//	}
-//
-//	public void setComptes(List<Compte> comptes) {
-//		this.comptes = comptes;
-//	}
-//	
-//	
-//	public void addCompte(Compte compte){
-//		this.comptes.add(compte);
-//	}
-//	
-//	public void removeCompte(Compte compte){
-//		this.comptes.remove(compte);
-//	}
-
-	@OneToMany(mappedBy="client")
-	public List<CompteClient> getCompteClient() {
-		return compteClient;
+	@ManyToMany
+	public List<Compte> getComptes() {
+		return comptes;
 	}
 
-	public void setCompteClient(List<CompteClient> compteClient) {
-		this.compteClient = compteClient;
+	public void setComptes(List<Compte> comptes) {
+		this.comptes = comptes;
 	}
 	
 	
+	public void addCompte(Compte compte){
+		this.comptes.add(compte);
+	}
+	
+	public void removeCompte(Compte compte){
+		this.comptes.remove(compte);
+	}
 }
