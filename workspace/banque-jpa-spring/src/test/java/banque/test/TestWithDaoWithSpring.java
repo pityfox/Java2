@@ -7,14 +7,10 @@ import java.util.Date;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import banque.Application;
 import banque.dao.AgenceDao;
-import banque.dao.AgenceDaoJpa;
 import banque.dao.ClientCompteDao;
-import banque.dao.ClientCompteDaoJpa;
 import banque.dao.ClientDao;
 import banque.dao.CompteDao;
-import banque.dao.CompteDaoJpa;
 import banque.model.Adresse;
 import banque.model.Agence;
 import banque.model.Client;
@@ -73,11 +69,10 @@ public class TestWithDaoWithSpring {
 
 		clientCompteDao.create(new ClientCompte(dupont, cptJoint));
 		clientCompteDao.create(new ClientCompte(durand, cptJoint));
-
-		// TEST DELETE CLIENT + COMPTES
-		clientDao.delete(dupont);
 		
-		Application.close();
+		clientDao.delete(dupont);
+
+		
 
 	}
 

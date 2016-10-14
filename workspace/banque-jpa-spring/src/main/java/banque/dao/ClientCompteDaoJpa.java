@@ -4,23 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import banque.Application;
-import banque.model.Client;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import banque.model.ClientCompte;
 import banque.model.ClientCompteId;
 
+@Component
 public class ClientCompteDaoJpa implements ClientCompteDao {
 
+	@Autowired
+	private EntityManagerFactory entityManagerFactory;
+	
 	@Override
 	public ClientCompte find(ClientCompteId id) {
 		ClientCompte clientCompte = null;
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		try {
-			em = Application.getInstance().getEmf().createEntityManager();
+			em = entityManagerFactory.createEntityManager();
 			tx = em.getTransaction();
 
 			tx.begin();
@@ -47,7 +53,7 @@ public class ClientCompteDaoJpa implements ClientCompteDao {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		try {
-			em = Application.getInstance().getEmf().createEntityManager();
+			em = entityManagerFactory.createEntityManager();
 			tx = em.getTransaction();
 
 			tx.begin();
@@ -74,7 +80,7 @@ public class ClientCompteDaoJpa implements ClientCompteDao {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		try {
-			em = Application.getInstance().getEmf().createEntityManager();
+			em = entityManagerFactory.createEntityManager();
 			tx = em.getTransaction();
 
 			tx.begin();
@@ -103,7 +109,7 @@ public class ClientCompteDaoJpa implements ClientCompteDao {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		try {
-			em = Application.getInstance().getEmf().createEntityManager();
+			em = entityManagerFactory.createEntityManager();
 			tx = em.getTransaction();
 
 			tx.begin();
@@ -129,13 +135,12 @@ public class ClientCompteDaoJpa implements ClientCompteDao {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		try {
-			em = Application.getInstance().getEmf().createEntityManager();
+			em = entityManagerFactory.createEntityManager();
 			tx = em.getTransaction();
 
 			tx.begin();
 
-			obj = em.merge(obj);
-			em.remove(obj);
+			em.remove(em.merge(obj));
 
 			tx.commit();
 		} catch (Exception e) {

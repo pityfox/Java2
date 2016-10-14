@@ -31,7 +31,7 @@ import javax.persistence.Version;
 @SecondaryTable(name = "customer_comment")
 public class Client {
 
-	private Long id;
+	private long id;
 	private int version;
 	private String nom;
 	private String prenom;
@@ -55,11 +55,11 @@ public class Client {
 
 	@Id
 	@GeneratedValue
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

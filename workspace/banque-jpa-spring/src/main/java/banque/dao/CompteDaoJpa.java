@@ -4,21 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import banque.Application;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import banque.model.Compte;
 
+@Component
 public class CompteDaoJpa implements CompteDao {
 
+	@Autowired
+	private EntityManagerFactory entityManagerFactory;
+	
 	@Override
 	public Compte find(String id) {
 		Compte compte = null;
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		try {
-			em = Application.getInstance().getEmf().createEntityManager();
+			em = entityManagerFactory.createEntityManager();
 			tx = em.getTransaction();
 
 			tx.begin();
@@ -45,7 +52,7 @@ public class CompteDaoJpa implements CompteDao {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		try {
-			em = Application.getInstance().getEmf().createEntityManager();
+			em = entityManagerFactory.createEntityManager();
 			tx = em.getTransaction();
 
 			tx.begin();
@@ -72,7 +79,7 @@ public class CompteDaoJpa implements CompteDao {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		try {
-			em = Application.getInstance().getEmf().createEntityManager();
+			em = entityManagerFactory.createEntityManager();
 			tx = em.getTransaction();
 
 			tx.begin();
@@ -98,7 +105,7 @@ public class CompteDaoJpa implements CompteDao {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		try {
-			em = Application.getInstance().getEmf().createEntityManager();
+			em = entityManagerFactory.createEntityManager();
 			tx = em.getTransaction();
 
 			tx.begin();
@@ -124,7 +131,7 @@ public class CompteDaoJpa implements CompteDao {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		try {
-			em = Application.getInstance().getEmf().createEntityManager();
+			em = entityManagerFactory.createEntityManager();
 			tx = em.getTransaction();
 
 			tx.begin();
@@ -150,7 +157,7 @@ public class CompteDaoJpa implements CompteDao {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		try {
-			em = Application.getInstance().getEmf().createEntityManager();
+			em = entityManagerFactory.createEntityManager();
 			tx = em.getTransaction();
 
 			tx.begin();

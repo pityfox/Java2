@@ -9,14 +9,51 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-	<bean id="agenceDao" class="banque.dao.AgenceDaoJpa">
-		<constructor-arg ref="clientDao" index="0" /> <!-- Par constructeur pas terrible car les instances doivent être créées dans l'ordre pour que le constructeur les connaisses -->
-	</bean>
-	<bean id="clientDao" class="banque.dao.ClientDaoJpa">
-		<property name="clientCompteDao" ref="clientCompteDao"></property>
-	</bean>
-	<bean id="compteDao" class="banque.dao.CompteDaoJpa" />
-	<bean id="clientCompteDao" class="banque.dao.ClientCompteDaoJpa" />
+	<context:annotation-config/>
+	
+	<!-- Activation annotations et scan des classes du package formation.dao -->
+	<context:component-scan base-package="banque.dao"/>
 
+	<!-- Charge en mémoire le contenu du fichier sgbd.properties -->
+	<context:property-placeholder location="classpath:sgbd.properties"/>
+	
+	<!-- Création d'une dataSource DBCP (Connection Pooling) -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${db.driver}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.user}"/>
+        <property name="password" value="${db.password}"/>
+        <property name="initialSize" value="${db.initialSize}"/>
+        <property name="maxActive" value="${db.maxActive}"/>
+    </bean>
+	
+	<!-- Création d'un entityManagerFactory local à partir de la dataSource     -->
+    <bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="banque.model" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="${db.dialect}" />
+				<property name="showSql" value="true" />
+				<property name="generateDdl" value="true" />
+			</bean>
+		</property>
+	</bean>
+	
+	
+	
+<!-- 	<bean id="agenceDao" class="banque.dao.AgenceDaoJpa"> -->
+<!-- 		<constructor-arg ref="clientDao"/> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="clientDao" class="banque.dao.ClientDaoJpa"> -->
+<!-- 		<property name="entityManagerFactory" ref="entityManagerFactory"/> -->
+<!-- 		<property name="clientCompteDao" ref="clientCompteDao"/> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="compteDao" class="banque.dao.CompteDaoJpa"/> -->
+<!-- 	<bean id="clientCompteDao" class="banque.dao.ClientCompteDaoJpa"/> -->
+
+
+	
 
 </beans>
