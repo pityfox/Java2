@@ -10,11 +10,12 @@ import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import banque.model.Agence;
 import banque.model.AgenceId;
 
-@Component
+@Repository
 public class AgenceDaoJpa implements AgenceDao {
 
 	@Autowired

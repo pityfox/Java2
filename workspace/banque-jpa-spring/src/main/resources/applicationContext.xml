@@ -41,7 +41,18 @@
 		</property>
 	</bean>
 	
+	<!-- Création du transactionManager pour JPA avec entityManagerFactory	 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
 	
+	<!-- Activation des annotations @Transactionnal avec transactionManager	 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- Activation de la translation d'exception -->
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor">
+	</bean>
 	
 <!-- 	<bean id="agenceDao" class="banque.dao.AgenceDaoJpa"> -->
 <!-- 		<constructor-arg ref="clientDao"/> -->
