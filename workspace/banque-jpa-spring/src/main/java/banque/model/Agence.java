@@ -108,4 +108,12 @@ public class Agence {
 		this.clients.remove(client);
 	}
 
+	@Override
+	public String toString() {
+		return "Agence [id=" + id + ", version=" + version + ", libelle=" + libelle + ", horaires=" + horaires
+				+ ", adresse=" + adresse + "]";
+	}
+	
+	
+
 }

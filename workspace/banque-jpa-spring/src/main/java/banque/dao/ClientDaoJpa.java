@@ -1,5 +1,6 @@
 package banque.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import banque.model.Client;
 import banque.model.ClientCompte;
+import banque.model.Titre;
 
 @Repository
 @Transactional
@@ -67,4 +69,47 @@ public class ClientDaoJpa implements ClientDao {
 		return query.getResultList();
 	}
 
+	@Override
+	public Client findByNameSurname(String name, String surname) {
+		Query query = em.createQuery("select c from Client c where c.prenom=:name and c.nom=:surname");
+		query.setParameter("name", name);
+		query.setParameter("surname", surname);
+		List<Client> clients = query.getResultList();
+		
+		return (clients.size() > 0)?clients.get(0):null;
+	}
+
+	public List<Client> findAllByTitle(Titre titre){
+		Query query = em.createQuery("select c from Client c where c.titre=:title");
+		query.setParameter("title", titre);
+		return query.getResultList();
+	}
+	
+	public List<Client> findAllByCity(String city){
+		Query query = em.createQuery("select c from Client c where c.adr.ville=:city");
+		query.setParameter("city", city);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Client> findAllByYear(int year) {
+		Query query = em.createQuery("select c from Client c where YEAR(c.dtNaissance)=:ydate");
+		query.setParameter("ydate", year);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Object[]> findAllWithAgency() {
+		Query query = em.createQuery("select c,a from Client c join c.agence a");
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Client> findAllByAgencyCity(String city) {
+		Query query = em.createQuery("select c from Client c where c.agence.adresse.ville=:city");
+		query.setParameter("city", city);
+		return query.getResultList();
+	}
+	
+	
 }

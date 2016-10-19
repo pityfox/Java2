@@ -23,7 +23,7 @@ public class TestWithDaoWithSpring {
 	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 	public static void main(String[] args) throws ParseException {
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		
 		AgenceDao agenceDao = context.getBean(AgenceDao.class);
 		ClientDao clientDao = context.getBean(ClientDao.class);
@@ -73,7 +73,7 @@ public class TestWithDaoWithSpring {
 		clientDao.delete(dupont);
 
 		
-
+		context.close();
 	}
 
 }

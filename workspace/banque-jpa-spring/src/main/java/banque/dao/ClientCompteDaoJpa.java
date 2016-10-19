@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import banque.model.ClientCompte;
@@ -23,7 +24,7 @@ public class ClientCompteDaoJpa implements ClientCompteDao {
 
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public ClientCompte find(ClientCompteId id) {
@@ -41,6 +42,7 @@ public class ClientCompteDaoJpa implements ClientCompteDao {
 	public void create(ClientCompte obj) {
 		obj.setClient(em.merge(obj.getClient()));
 		obj.setCompte(em.merge(obj.getCompte()));
+
 		em.persist(obj);
 	}
 
@@ -50,7 +52,7 @@ public class ClientCompteDaoJpa implements ClientCompteDao {
 	}
 
 	@Override
-	public void delete(ClientCompte obj) {
+ 	public void delete(ClientCompte obj) {
 		em.remove(em.merge(obj));
 	}
 
