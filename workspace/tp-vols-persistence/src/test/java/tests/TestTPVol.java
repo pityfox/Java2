@@ -136,6 +136,24 @@ public class TestTPVol {
 		vol.setDepart(aeroportDep);
 		vol.setArrivee(aeroportArr);
 
+		Vol vol2 = new Vol();
+		Calendar cal2 = GregorianCalendar.getInstance();
+		cal2.set(2014, Calendar.APRIL, 18, 15, 20, 00);
+		cal2.set(Calendar.MILLISECOND, 0);
+		Date dateDepart2 = cal2.getTime();
+		Date heureDepart2 = cal2.getTime();
+		cal2.set(2015, Calendar.MAY, 4, 15, 35, 00);
+		cal2.set(Calendar.MILLISECOND, 0);
+		Date dateArrivee2 = cal2.getTime();
+		Date heureArrivee2 = cal2.getTime();
+
+		vol2.setDateDepart(dateDepart2);
+		vol2.setDateArrivee(dateArrivee2);
+		vol2.setHeureArrivee(heureArrivee2);
+		vol2.setHeureDepart(heureDepart2);
+		vol2.setDepart(aeroportDep);
+		vol2.setArrivee(aeroportArr);
+		
 		List<Escale> escales = new ArrayList<Escale>();
 		Escale escale = new Escale();
 		escale.setAeroport(aeroportEscale);
@@ -152,6 +170,13 @@ public class TestTPVol {
 		cav.setId(cavId);
 		cav.setNumero("963");
 
+		CompagnieAerienneVol cav2 = new CompagnieAerienneVol();
+		CompagnieAerienneVolId cav2Id = new CompagnieAerienneVolId();
+		cav2Id.setCompagnieAerienne(ca);
+		cav2Id.setVol(vol2);
+		cav2.setId(cav2Id);
+		cav2.setNumero("967");
+		
 		ClientPhysique cp = new ClientPhysique();
 
 		Login logClient = new Login();
@@ -172,6 +197,12 @@ public class TestTPVol {
 		res.setPassager(passager);
 		res.setVol(vol);
 		res.setClient(cp);
+		
+		Reservation res2 = new Reservation();
+		res2.setNumero(601);
+		res2.setPassager(passager);
+		res2.setVol(vol2);
+		res2.setClient(cp);
 
 		passagerDao.create(passager);
 
@@ -188,19 +219,31 @@ public class TestTPVol {
 		villeAeroportDao.create(vaEsc);
 
 		volDao.create(vol);
-
+		volDao.create(vol2);
+		
 		escaleDao.create(escale);
 
 		compagnieAerienneDao.create(ca);
 
 		compagnieAerienneVolDao.create(cav);
-
+		compagnieAerienneVolDao.create(cav2);
+		
 		loginDao.create(logClient);
 
 		clientDao.create(cp);
 
 		reservationDao.create(res);
+		reservationDao.create(res2);
 	}
+	
+	// TESTS JPQL
+	@Test
+	public void bjpql(){
+		long nbResa = reservationDao.countByVolNumber("963");
+		System.out.println("Nb resa : " + nbResa);
+	}
+	
+	// TESTS UNITAIRES
 
 //	@Test
 //	public void bcheck() {

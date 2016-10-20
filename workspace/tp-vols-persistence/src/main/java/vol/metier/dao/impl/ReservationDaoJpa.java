@@ -75,4 +75,11 @@ public class ReservationDaoJpa implements ReservationDao {
 		
 	}
 
+	@Override
+	public Long countByVolNumber(String numeroVol) {
+		Query query = em.createQuery("select count(r) from Reservation r join r.vol.compagniesAerienneVol cav where cav.numero=:numero");
+		query.setParameter("numero", numeroVol);
+		return (long) query.getFirstResult();
+	}
+
 }
