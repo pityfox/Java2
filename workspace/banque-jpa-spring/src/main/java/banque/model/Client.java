@@ -133,7 +133,7 @@ public class Client {
 		this.adr = adr;
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(referencedColumnName = "numBanque", name = "agence_numBanque"),
 			@JoinColumn(referencedColumnName = "numAgence", name = "agence_numAgence") })
 	public Agence getAgence() {

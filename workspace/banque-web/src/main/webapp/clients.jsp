@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" session="true"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,7 +20,7 @@
 		<th></th>
 		<th></th>
 	</tr>
-	<%-- JSTL --%>
+	
 	<c:forEach items="${clients}" var="client">
 		<c:url var="editUrl" value="/client">
 			<c:param name="action" value="edit"/>
@@ -34,7 +35,7 @@
 			<td>${client.titre.label}</td>
 			<td>${client.nom}</td>
 			<td>${client.prenom}</td>
-			<td>${client.dtNaissance}</td>
+			<td><fmt:formatDate value="${client.dtNaissance}" pattern="dd/MM/yyyy"/></td>
 			<td><a href="${editUrl}">Modifier</a></td>
 			<td><a href="${deleteUrl}">Supprimer</a></td>
 		</tr>

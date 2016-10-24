@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import banque.dao.AgenceDao;
@@ -69,6 +68,13 @@ public class TestWithDaoWithSpring {
 
 		clientCompteDao.create(new ClientCompte(dupont, cptJoint));
 		clientCompteDao.create(new ClientCompte(durand, cptJoint));
+		
+		for(Object[] ligne : clientDao.findAllWithAgency()) {
+			Client client = (Client) ligne[0];
+			Agence agence = (Agence) ligne[1];
+			System.out.println("client="+client.getNom());
+			System.out.println("agence="+agence.getLibelle());
+		}
 		
 		clientDao.delete(dupont);
 

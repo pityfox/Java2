@@ -15,24 +15,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.ApplicationContext;
 
-import banque.dao.ClientDao;
+import banque.dao.AgenceDao;
 import banque.model.Adresse;
-import banque.model.Client;
+import banque.model.Agence;
+import banque.model.AgenceId;
 import banque.model.Titre;
 
-/**
- * Servlet implementation class ClientController
- */
-@WebServlet("/client")
-public class ClientController extends HttpServlet {
+@WebServlet("/agence")
+public class AgenceController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	private ClientDao clientDao;
-
+	private AgenceDao agenceDao;
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ClientController() {
+	public AgenceController() {
 		super();
 	}
 
@@ -40,7 +37,7 @@ public class ClientController extends HttpServlet {
 	public void init() throws ServletException {
 		super.init();
 		ApplicationContext context = (ApplicationContext) getServletContext().getAttribute("spring");
-		clientDao = context.getBean(ClientDao.class);
+		agenceDao = context.getBean(AgenceDao.class);
 	}
 
 	/**
@@ -83,83 +80,75 @@ public class ClientController extends HttpServlet {
 	}
 
 	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Client> clients = clientDao.findAll();
+		List<Agence> agences = agenceDao.findAll();
 
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/clients.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/agences.jsp");
 
-		request.setAttribute("clients", clients);
+		request.setAttribute("agences", agences);
 
 		rd.forward(request, response);
 	}
 
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/clientEdit.jsp");
-
-		request.setAttribute("titres", Titre.values());
-
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/agenceEdit.jsp");
 		rd.forward(request, response);
 	}
 
 	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Long id = Long.valueOf(request.getParameter("id"));
-		Client client = clientDao.find(id);
+		Integer numBanque = Integer.valueOf(request.getParameter("numBanque"));
+		Integer numAgence = Integer.valueOf(request.getParameter("numAgence"));
+		AgenceId id = new AgenceId(numBanque, numAgence);
+		Agence agence = agenceDao.find(id);
 
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/clientEdit.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/agenceEdit.jsp");
 
-		request.setAttribute("client", client);
-		request.setAttribute("titres", Titre.values());
+		request.setAttribute("agence", agence);
 
 		rd.forward(request, response);
 	}
 
 	private void save(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Long id = request.getParameter("id") != null && !request.getParameter("id").isEmpty()
-				? Long.valueOf(request.getParameter("id")) : null;
+		Integer numBanque = Integer.valueOf(request.getParameter("numBanque"));
+		Integer numAgence = Integer.valueOf(request.getParameter("numAgence"));
+		AgenceId id = new AgenceId(numBanque, numAgence);
 		int version = request.getParameter("version") != null && !request.getParameter("version").isEmpty()
 				? Integer.valueOf(request.getParameter("version")) : 0;
-		Titre titre = Titre.valueOf(request.getParameter("titre"));
-		String nom = request.getParameter("nom") != null && !request.getParameter("nom").isEmpty()
-				? request.getParameter("nom") : null;
-		String prenom = request.getParameter("prenom") != null && !request.getParameter("prenom").isEmpty()
-				? request.getParameter("prenom") : null;
-		Date dtNaissance = null;
-		try {
-			dtNaissance = sdf.parse(request.getParameter("dtNaissance"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		String commentaire = request.getParameter("commentaire") != null
-				&& !request.getParameter("commentaire").isEmpty() ? request.getParameter("commentaire") : null;
 		String rue = request.getParameter("rue") != null && !request.getParameter("rue").isEmpty()
 				? request.getParameter("rue") : null;
 		String codePostal = request.getParameter("codePostal") != null && !request.getParameter("codePostal").isEmpty()
 				? request.getParameter("codePostal") : null;
 		String ville = request.getParameter("ville") != null && !request.getParameter("ville").isEmpty()
 				? request.getParameter("ville") : null;
-
-		Client client = new Client();
-		client.setId(id);
-		client.setVersion(version);
-		client.setTitre(titre);
-		client.setNom(nom);
-		client.setPrenom(prenom);
-		client.setDtNaissance(dtNaissance);
-		client.setCommentaire(commentaire);
-		client.setAdr(new Adresse(rue, codePostal, ville));
-
-		if (client.getId() == null) {
-			clientDao.create(client);
+		String horaires = request.getParameter("horaires") != null && !request.getParameter("horaires").isEmpty()
+				? request.getParameter("horaires") : null;
+		
+		String libelle = request.getParameter("libelle") != null && !request.getParameter("libelle").isEmpty()
+				? request.getParameter("libelle") : null;
+				System.out.println("+++++++++ DEBUG +++++++++");	
+				System.out.println(numBanque);	
+				System.out.println(numAgence);	
+				System.out.println(id);		
+		Agence agence = new Agence();
+		agence.setId(id);
+		agence.setVersion(version);
+		agence.setAdresse(new Adresse(rue, codePostal, ville));
+		agence.setHoraires(horaires);
+		agence.setLibelle(libelle);
+		
+		if (request.getParameter("numBanqueOld") == null && request.getParameter("numAgenceOld") == null) {
+			agenceDao.create(agence);
 		} else {
-			clientDao.update(client);
+			agenceDao.update(agence);
 		}
 	}
 
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Long id = Long.valueOf(request.getParameter("id"));
-		Client client = clientDao.find(id);
+		Integer numBanque = Integer.valueOf(request.getParameter("numBanque"));
+		Integer numAgence = Integer.valueOf(request.getParameter("numAgence"));
+		AgenceId id = new AgenceId(numBanque, numAgence);
+		Agence agence = agenceDao.find(id);
 
-		clientDao.delete(client);
+		agenceDao.delete(agence);
 	}
 
 	/**
@@ -170,5 +159,4 @@ public class ClientController extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

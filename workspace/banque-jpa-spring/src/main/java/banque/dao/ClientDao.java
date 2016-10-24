@@ -1,6 +1,5 @@
 package banque.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import banque.model.Client;
@@ -8,10 +7,10 @@ import banque.model.Titre;
 
 public interface ClientDao extends Dao<Client, Long>{
 	List<Client> findAllByName(String name);
-	Client findByNameSurname(String name, String surname);
-	List<Client> findAllByTitle(Titre titre);
-	List<Client> findAllByCity(String city);
-	List<Client> findAllByYear(int year);
+	Client find(String nom, String prenom);
+	List<Client> findByTitle(Titre titre); 
+	List<Client> findByCity(String ville); 
+	List<Client> findByYear(int annee); 
 	List<Object[]> findAllWithAgency();
-	List<Client> findAllByAgencyCity(String city);
+	List<Client> findByCityAgency(String ville);
 }

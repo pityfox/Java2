@@ -1,6 +1,8 @@
 package banque.dao;
 
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -70,46 +72,63 @@ public class ClientDaoJpa implements ClientDao {
 	}
 
 	@Override
-	public Client findByNameSurname(String name, String surname) {
-		Query query = em.createQuery("select c from Client c where c.prenom=:name and c.nom=:surname");
-		query.setParameter("name", name);
-		query.setParameter("surname", surname);
+	public Client find(String nom, String prenom) {
+		Query query = em.createQuery("select c from Client c where c.nom = :nom and c.prenom = :prenom");
+		query.setParameter("nom", nom);
+		query.setParameter("prenom", prenom);
 		List<Client> clients = query.getResultList();
-		
-		return (clients.size() > 0)?clients.get(0):null;
+		return clients.size() > 0 ? clients.get(0) : null;
 	}
 
-	public List<Client> findAllByTitle(Titre titre){
-		Query query = em.createQuery("select c from Client c where c.titre=:title");
-		query.setParameter("title", titre);
-		return query.getResultList();
-	}
-	
-	public List<Client> findAllByCity(String city){
-		Query query = em.createQuery("select c from Client c where c.adr.ville=:city");
-		query.setParameter("city", city);
+	@Override
+	public List<Client> findByTitle(Titre titre) {
+		Query query = em.createQuery("select c from Client c where c.titre = :titre");
+		query.setParameter("titre", titre);
 		return query.getResultList();
 	}
 
 	@Override
-	public List<Client> findAllByYear(int year) {
-		Query query = em.createQuery("select c from Client c where YEAR(c.dtNaissance)=:ydate");
-		query.setParameter("ydate", year);
+	public List<Client> findByCity(String ville) {
+		Query query = em.createQuery("select c from Client c where c.adr.ville = :ville");
+		query.setParameter("ville", ville);
+		return query.getResultList();
+	}
+
+//	@Override
+//	public List<Client> findByYear(int annee) {
+//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//		Query query = null;
+//		try {
+//			query = em.createQuery("select c from Client c where c.dtNaissance between :dtDebut and :dtFin");
+//			query.setParameter("dtDebut", sdf.parse("01/01/" + annee));
+//			query.setParameter("dtFin", sdf.parse("31/12/" + annee));
+//		} catch (ParseException e) {
+//
+//		}
+//		return query.getResultList();
+//	}
+	
+	public List<Client> findByYear(int annee) {
+		Query query = em.createQuery("select c from Client c where year(c.dtNaissance) = :annee");
+		query.setParameter("annee", annee);
+		
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Object[]> findAllWithAgency() {
-		Query query = em.createQuery("select c,a from Client c join c.agence a");
+//		Query query = em.createQuery("select c, a from Client c join c.agence a");
+		Query query = em.createQuery("select c, c.agence from Client c");
+		
 		return query.getResultList();
 	}
 
 	@Override
-	public List<Client> findAllByAgencyCity(String city) {
-		Query query = em.createQuery("select c from Client c where c.agence.adresse.ville=:city");
-		query.setParameter("city", city);
-		return query.getResultList();
+	public List<Client> findByCityAgency(String ville) {
+		Query query = em.createQuery("select c, c.agence from Client c where c.agence.adresse.ville = :ville");
+		query.setParameter("ville", ville);
+		
+		return query.getResultList();	
 	}
-	
-	
+
 }

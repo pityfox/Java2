@@ -145,7 +145,7 @@ public class AgenceDaoJpa implements AgenceDao {
 			tx = em.getTransaction();
 
 			tx.begin();
-
+			obj = em.merge(obj);
 			em.remove(obj);
 
 			tx.commit();

@@ -71,6 +71,7 @@ public class TestNewAgeWithSpring {
 		// }
 
 		Assert.assertNull("ClientFind n'est pas null : problème de suppression", clientFind);
+	
 	}
 	
 	@Test
