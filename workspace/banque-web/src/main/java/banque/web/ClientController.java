@@ -1,7 +1,6 @@
 package banque.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,14 +15,21 @@ import org.springframework.context.ApplicationContext;
 import banque.dao.ClientDao;
 import banque.model.Client;
 
+/**
+ * Servlet implementation class ClientController
+ */
 @WebServlet("/client")
 public class ClientController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	private ClientDao clientDao;
-	
-    public ClientController() {
-        super();
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ClientController() {
+		super();
+	}
 
 	@Override
 	public void init() throws ServletException {
@@ -31,37 +37,50 @@ public class ClientController extends HttpServlet {
 		ApplicationContext context = (ApplicationContext) getServletContext().getAttribute("spring");
 		clientDao = context.getBean(ClientDao.class);
 	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter("action") != null ? request.getParameter("action") : "list";
-		
-		response.setContentType("text/html");
 
-		PrintWriter out = response.getWriter();
-		
-		switch(action) {
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = request.getParameter("action") != null ? request.getParameter("action") : "list";
+
+		switch (action) {
 		case "list":
 			List<Client> clients = clientDao.findAll();
+
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/clients.jsp");
+			
 			request.setAttribute("clients", clients);
+			
 			rd.forward(request, response);
+			
 			break;
 		case "add":
+
 			break;
 		case "edit":
+
 			break;
 		case "save":
-			break;	
+
+			break;
 		case "delete":
+
+			break;
+		default:
 			break;
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
-
-
-	
 }
