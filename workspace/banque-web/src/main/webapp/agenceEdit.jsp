@@ -18,17 +18,16 @@
 
 		<form method="post" action="${saveUrl}">
 			<input type="hidden" name="action" value="save" />
-			<input type="hidden" name="numBanqueOld" value="${agence.id.numBanque}" />
-			<input type="hidden" name="numAgenceOld" value="${agence.id.numAgence}" />
+			<input type="hidden" name="new" value="${"add".equals(param['action']) ? true:false}" />
 			<input type="hidden" name="version" value="${agence.version}" />
 			<table border="1">
 				<tr>
 					<td>NumAgence</td>
-					<td><input type="text" name="numAgence" value="${agence.id.numAgence}" ${agence.id.numAgence != null ?"readonly":""} /></td>
+					<td><input type="text" name="numAgence" value="${agence.id.numAgence}" ${"add".equals(param['action']) ? "":"readonly"} /></td>
 				</tr>
 				<tr>
 					<td>NumBanque</td>
-					<td><input type="text" name="numBanque" value="${agence.id.numBanque}" ${agence.id.numBanque != null ?"readonly":""}/></td>
+					<td><input type="text" name="numBanque" value="${agence.id.numBanque}" ${"add".equals(param['action']) ? "":"readonly"}/></td>
 				</tr>
 				<tr>
 					<td>CP</td>

@@ -111,6 +111,7 @@ public class AgenceController extends HttpServlet {
 		Integer numBanque = Integer.valueOf(request.getParameter("numBanque"));
 		Integer numAgence = Integer.valueOf(request.getParameter("numAgence"));
 		AgenceId id = new AgenceId(numBanque, numAgence);
+		
 		int version = request.getParameter("version") != null && !request.getParameter("version").isEmpty()
 				? Integer.valueOf(request.getParameter("version")) : 0;
 		String rue = request.getParameter("rue") != null && !request.getParameter("rue").isEmpty()
@@ -124,10 +125,7 @@ public class AgenceController extends HttpServlet {
 		
 		String libelle = request.getParameter("libelle") != null && !request.getParameter("libelle").isEmpty()
 				? request.getParameter("libelle") : null;
-				System.out.println("+++++++++ DEBUG +++++++++");	
-				System.out.println(numBanque);	
-				System.out.println(numAgence);	
-				System.out.println(id);		
+		
 		Agence agence = new Agence();
 		agence.setId(id);
 		agence.setVersion(version);
@@ -135,7 +133,7 @@ public class AgenceController extends HttpServlet {
 		agence.setHoraires(horaires);
 		agence.setLibelle(libelle);
 		
-		if (request.getParameter("numBanqueOld") == null && request.getParameter("numAgenceOld") == null) {
+		if (Boolean.getBoolean(request.getParameter("new"))) {
 			agenceDao.create(agence);
 		} else {
 			agenceDao.update(agence);

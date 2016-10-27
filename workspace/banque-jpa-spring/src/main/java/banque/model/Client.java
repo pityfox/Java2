@@ -25,13 +25,24 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRegistry;
+
+import org.hibernate.validator.constraints.Email;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "customer")
 @SecondaryTable(name = "customer_comment")
 public class Client {
 
-	private long id;
+	private Long id;
 	private int version;
 	private String nom;
 	private String prenom;
@@ -40,7 +51,7 @@ public class Client {
 	private Titre titre;
 	private Adresse adr;
 	private Agence agence;
-//	private List<Compte> comptes = new ArrayList<Compte>();
+	// private List<Compte> comptes = new ArrayList<Compte>();
 	private List<ClientCompte> comptes = new ArrayList<ClientCompte>();
 
 	public Client() {
@@ -55,14 +66,14 @@ public class Client {
 
 	@Id
 	@GeneratedValue
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	@Version
 	public int getVersion() {
 		return version;
@@ -73,6 +84,8 @@ public class Client {
 	}
 
 	@Column(name = "lastname", length = 100)
+	@Size(min = 1, message="{client.nom.required}")
+	@Pattern(regexp="^[A-Z]+.*", message="{client.nom.firstCaps}")
 	public String getNom() {
 		return nom;
 	}
@@ -82,6 +95,7 @@ public class Client {
 	}
 
 	@Column(name = "firstname", length = 100)
+	@Size(min=2, message="{client.prenom.minSize}")
 	public String getPrenom() {
 		return prenom;
 	}
@@ -92,6 +106,9 @@ public class Client {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "birthdate")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(message="{client.birthDate.required}")
+	@Past(message="{client.birthDate.past}")
 	public Date getDtNaissance() {
 		return dtNaissance;
 	}
@@ -113,6 +130,7 @@ public class Client {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "title", length = 10)
+	@NotNull(message="{client.titre.required}")
 	public Titre getTitre() {
 		return titre;
 	}
@@ -125,6 +143,7 @@ public class Client {
 	@AttributeOverrides({ @AttributeOverride(name = "rue", column = @Column(name = "street", length = 50) ),
 			@AttributeOverride(name = "codePostal", column = @Column(name = "zipcode", length = 10) ),
 			@AttributeOverride(name = "ville", column = @Column(name = "city", length = 50) ) })
+	@Valid
 	public Adresse getAdr() {
 		return adr;
 	}
@@ -133,7 +152,7 @@ public class Client {
 		this.adr = adr;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(referencedColumnName = "numBanque", name = "agence_numBanque"),
 			@JoinColumn(referencedColumnName = "numAgence", name = "agence_numAgence") })
 	public Agence getAgence() {
@@ -144,25 +163,25 @@ public class Client {
 		this.agence = agence;
 	}
 
-//	@ManyToMany
-//	@JoinTable(name="customer_compte", joinColumns=@JoinColumn(name="customer_id"), inverseJoinColumns=@JoinColumn(name="compte_numcompte"))
-//	public List<Compte> getComptes() {
-//		return comptes;
-//	}
-//
-//	public void setComptes(List<Compte> comptes) {
-//		this.comptes = comptes;
-//	}
-//	
-//	public void addCompte(Compte compte) {
-//		this.comptes.add(compte);
-//	}
-//	
-//	public void remvoeCompte(Compte compte) {
-//		this.comptes.remove(compte);
-//	}
-	
-	
+	// @ManyToMany
+	// @JoinTable(name="customer_compte",
+	// joinColumns=@JoinColumn(name="customer_id"),
+	// inverseJoinColumns=@JoinColumn(name="compte_numcompte"))
+	// public List<Compte> getComptes() {
+	// return comptes;
+	// }
+	//
+	// public void setComptes(List<Compte> comptes) {
+	// this.comptes = comptes;
+	// }
+	//
+	// public void addCompte(Compte compte) {
+	// this.comptes.add(compte);
+	// }
+	//
+	// public void remvoeCompte(Compte compte) {
+	// this.comptes.remove(compte);
+	// }
 
 	@Override
 	public String toString() {
@@ -170,7 +189,7 @@ public class Client {
 				+ ", commentaire=" + commentaire + ", titre=" + titre + "]";
 	}
 
-	@OneToMany(mappedBy="client")
+	@OneToMany(mappedBy = "client")
 	public List<ClientCompte> getComptes() {
 		return comptes;
 	}

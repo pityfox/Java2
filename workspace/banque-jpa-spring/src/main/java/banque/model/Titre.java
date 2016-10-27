@@ -1,7 +1,7 @@
 package banque.model;
 
 public enum Titre {
-	M("Monsieur"), MME("Madame"), MLLE("Mademoiselle");
+	M("titre.M"), MME("titre.MME"), MLLE("titre.MLLE");
 
 	private final String label;
 
