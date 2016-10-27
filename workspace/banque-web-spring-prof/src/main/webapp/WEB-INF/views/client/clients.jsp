@@ -7,14 +7,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title><spring:message code="clients.title" /></title>
 <spring:url value="/resources/bootstrap.css" var="bootstrap" />
 <link href="${bootstrap}" rel="stylesheet" />
-<title><spring:message code="clients.title" /></title>
 </head>
 <body>
-
+<jsp:include page="/header"></jsp:include>
 	<div class="container">
-	<h2><spring:message code="clients.title" /></h2>
+		<h2><spring:message code="clients.title"/></h2>
 		<table class="table table-striped">
 			<tr>
 				<th><spring:message code="clients.id" /></th>
@@ -40,18 +40,20 @@
 					<td>${client.prenom}</td>
 					<td><fmt:formatDate value="${client.dtNaissance}"
 							pattern="dd/MM/yyyy" /></td>
-					<td><a href="${editUrl}" class="btn btn-warning btn-xs"><spring:message
+					<td><a href="${editUrl}" class="btn btn-info btn-xs"><spring:message
 								code="clients.edit" /></a></td>
-					<td><a href="${deleteUrl}" class="btn btn-danger btn-xs"><spring:message
+					<td><a href="${deleteUrl}" class="btn btn-warning btn-xs"><spring:message
 								code="clients.delete" /></a></td>
 				</tr>
 			</c:forEach>
 			<c:url var="addUrl" value="/client/add" />
 			<tr>
-				<td colspan="7"><a href="${addUrl}" class="btn btn-primary"><spring:message
-							code="clients.add" /></a></td>
+				<td colspan="7"><a href="${addUrl}" class="btn btn-info"><spring:message
+							code="clients.add"/></a></td>
 			</tr>
 		</table>
+
 	</div>
+
 </body>
 </html>

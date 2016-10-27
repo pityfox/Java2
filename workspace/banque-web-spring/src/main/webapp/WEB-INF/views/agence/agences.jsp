@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" session="true"%>
+	pageEncoding="ISO-8859-1" session="true"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -9,43 +9,51 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <spring:url value="/resources/bootstrap.css" var="bootstrap" />
 <link href="${bootstrap}" rel="stylesheet" />
-<title><spring:message code="agences.title"/></title>
+<title><spring:message code="agences.title" /></title>
 </head>
 <body>
 
-<table border="1">
-	<tr>
-		<th><spring:message code="agences.numBanque"/></th>
-		<th><spring:message code="agences.numAgence"/></th>
-		<th><spring:message code="agences.libelle"/></th>
-		<th><spring:message code="agences.horaires"/></th> 
-		<th></th>
-		<th></th>
-	</tr>
-	
-	<c:forEach items="${agences}" var="agence">
-		<c:url var="editUrl" value="/agence/edit">
-			<c:param name="numBanque" value="${agence.id.numBanque}"/>
-			<c:param name="numAgence" value="${agence.id.numAgence}"/>
-		</c:url>
-		<c:url var="deleteUrl" value="/agence/delete">
-			<c:param name="numBanque" value="${agence.id.numBanque}"/>
-			<c:param name="numAgence" value="${agence.id.numAgence}"/>
-		</c:url>
-		<tr>
-			<td>${agence.id.numBanque}</td>
-			<td>${agence.id.numAgence}</td>
-			<td>${agence.libelle}</td>
-			<td>${agence.horaires}</td>
-			<td><a href="${editUrl}"><spring:message code="agences.edit"/></a></td>
-			<td><a href="${deleteUrl}"><spring:message code="agences.delete"/></a></td>
-		</tr>
-	</c:forEach>
-	<c:url var="addUrl" value="/agence/add"/>
-	<tr>
-		<td colspan="7"><a href="${addUrl}"><spring:message code="agences.add"/></a></td>
-	</tr>
-</table>
+	<div class="container">
+		<h2>
+			<spring:message code="agences.title" />
+		</h2>
 
+		<table class="table table-striped">
+			<tr>
+				<th><spring:message code="agences.numBanque" /></th>
+				<th><spring:message code="agences.numAgence" /></th>
+				<th><spring:message code="agences.libelle" /></th>
+				<th><spring:message code="agences.horaires" /></th>
+				<th></th>
+				<th></th>
+			</tr>
+
+			<c:forEach items="${agences}" var="agence">
+				<c:url var="editUrl" value="/agence/edit">
+					<c:param name="numBanque" value="${agence.id.numBanque}" />
+					<c:param name="numAgence" value="${agence.id.numAgence}" />
+				</c:url>
+				<c:url var="deleteUrl" value="/agence/delete">
+					<c:param name="numBanque" value="${agence.id.numBanque}" />
+					<c:param name="numAgence" value="${agence.id.numAgence}" />
+				</c:url>
+				<tr>
+					<td>${agence.id.numBanque}</td>
+					<td>${agence.id.numAgence}</td>
+					<td>${agence.libelle}</td>
+					<td>${agence.horaires}</td>
+					<td><a class="btn btn-warning btn-xs" href="${editUrl}"><spring:message
+								code="agences.edit" /></a></td>
+					<td><a class="btn btn-danger btn-xs" href="${deleteUrl}"><spring:message
+								code="agences.delete" /></a></td>
+				</tr>
+			</c:forEach>
+			<c:url var="addUrl" value="/agence/add" />
+			<tr>
+				<td colspan="7"><a class="btn btn-primary" href="${addUrl}"><spring:message
+							code="agences.add" /></a></td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>

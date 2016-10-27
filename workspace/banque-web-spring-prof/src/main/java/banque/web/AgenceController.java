@@ -2,12 +2,9 @@ package banque.web;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +14,6 @@ import banque.dao.AgenceDao;
 import banque.model.Agence;
 import banque.model.AgenceId;
 import banque.model.Client;
-import banque.model.Titre;
 
 @Controller
 @RequestMapping("/agence")
@@ -31,6 +27,7 @@ public class AgenceController {
 		List<Agence> agences = agenceDao.findAll();
 
 		model.addAttribute("agences", agences);
+		model.addAttribute("page", "agence");
 
 		return "agence/agences";
 	}
@@ -54,12 +51,8 @@ public class AgenceController {
 	}
 
 	@RequestMapping("/save")
-	public String save(@RequestParam("mode") String mode, @ModelAttribute("agence") @Valid Agence agence, BindingResult result, Model model) {
+	public String save(@ModelAttribute("agence") Agence agence, @RequestParam("mode") String mode) {
 
-		if(result.hasErrors()) {
-			return "agence/agenceEdit";
-		}
-		
 		if("edit".equals(mode)) {
 			agenceDao.update(agence);
 		} else {

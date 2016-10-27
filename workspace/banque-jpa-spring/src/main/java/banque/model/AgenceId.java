@@ -3,6 +3,11 @@ package banque.model;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.springframework.format.annotation.NumberFormat;
+
 
 @SuppressWarnings("serial")
 @Embeddable
@@ -20,6 +25,7 @@ public class AgenceId implements Serializable {
 		this.numAgence = numAgence;
 	}
 
+	@NotNull(message="{AgenceId.numBanque.null}")
 	public Integer getNumBanque() {
 		return numBanque;
 	}
@@ -28,6 +34,7 @@ public class AgenceId implements Serializable {
 		this.numBanque = numBanque;
 	}
 
+	@NotNull(message="{AgenceId.numAgence.null}")
 	public Integer getNumAgence() {
 		return numAgence;
 	}

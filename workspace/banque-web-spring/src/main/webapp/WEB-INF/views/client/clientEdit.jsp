@@ -26,80 +26,101 @@
 				<form:hidden path="version" />
 
 				<div class="form-group">
-					<form:label cssClass="sr-only" path="titre">
+					<form:label cssClass="col-xs-3 control-label" path="titre">
 						<spring:message code="clientEdit.titre" />
 					</form:label>
-					<form:select path="titre">
-						<form:option value="">
-							<spring:message code="titre.selection" />
-						</form:option>
-						<c:forEach items="${titres}" var="t">
-							<form:option value="${t}">
-								<spring:message code="${t.label}" />
+					<div class="col-xs-5">
+						<form:select path="titre">
+							<form:option value="">
+								<spring:message code="titre.selection" />
 							</form:option>
-						</c:forEach>
-					</form:select>
-					<form:errors path="titre" />
+							<c:forEach items="${titres}" var="t">
+								<form:option value="${t}">
+									<spring:message code="${t.label}" />
+								</form:option>
+							</c:forEach>
+						</form:select><br>
+						<form:errors cssClass="text-danger" path="titre" />
+					</div>
 				</div>
 
 				<div class="form-group">
-					<form:label cssClass="sr-only" path="nom">
+					<form:label cssClass="col-xs-3 control-label" path="nom">
 						<spring:message code="clientEdit.nom" />
 					</form:label>
-					<form:input cssClass="form-control" path="nom" />
-					<form:errors path="nom" />
+					<div class="col-xs-5">
+						<form:input cssClass="form-control" path="nom" />
+						<form:errors cssClass="text-danger"  path="nom" />
+					</div>
 				</div>
 
 				<div class="form-group">
-					<form:label cssClass="sr-only" path="prenom">
+					<form:label cssClass="col-xs-3 control-label" path="prenom">
 						<spring:message code="clientEdit.prenom" />
 					</form:label>
-					<form:input cssClass="form-control" path="prenom" />
-					<form:errors path="prenom" />
+					<div class="col-xs-5">
+						<form:input cssClass="form-control" path="prenom" />
+						<form:errors cssClass="text-danger"  path="prenom" />
+					</div>
 				</div>
 
 				<div class="form-group">
-					<form:label cssClass="sr-only" path="dtNaissance">
+					<form:label cssClass="col-xs-3 control-label" path="dtNaissance">
 						<spring:message code="clientEdit.dtNaissance" />
 					</form:label>
-					<form:input cssClass="form-control" path="dtNaissance" type="date" />
-					<form:errors path="dtNaissance" />
+					<div class="col-xs-5">
+						<form:input cssClass="form-control" path="dtNaissance" type="date" />
+						<form:errors cssClass="text-danger"  path="dtNaissance" />
+					</div>
 				</div>
 
 				<div class="form-group">
-					<form:label cssClass="sr-only" path="commentaire">
+					<form:label cssClass="col-xs-3 control-label" path="commentaire">
 						<spring:message code="clientEdit.commentaire" />
 					</form:label>
-					<form:textarea path="commentaire" rows="4" />
-					<form:errors path="commentaire" />
+					<div class="col-xs-5">
+						<form:textarea path="commentaire" cssClass="form-control" rows="4" />
+						<form:errors cssClass="text-danger"  path="commentaire" />
+					</div>
 				</div>
 
 				<div class="form-group">
-					<form:label cssClass="sr-only" path="adr.rue">
+					<form:label cssClass="col-xs-3 control-label" path="adr.rue">
 						<spring:message code="clientEdit.rue" />
 					</form:label>
-					<form:input cssClass="form-control" path="adr.rue" />
-					<form:errors path="adr.rue" />
+					<div class="col-xs-5">
+						<form:input cssClass="form-control" path="adr.rue" />
+						<form:errors cssClass="text-danger"  path="adr.rue" />
+					</div>
 				</div>
 
 				<div class="form-group">
-					<form:label cssClass="sr-only" path="adr.codePostal">
+					<form:label cssClass="col-xs-3 control-label" path="adr.codePostal">
 						<spring:message code="clientEdit.codePostal" />
 					</form:label>
-					<form:input cssClass="form-control" path="adr.codePostal" />
-					<form:errors path="adr.codePostal" />
+					<div class="col-xs-5">
+						<form:input cssClass="form-control" path="adr.codePostal" />
+						<form:errors cssClass="text-danger"  path="adr.codePostal" />
+					</div>
 				</div>
 
 				<div class="form-group">
-					<form:label cssClass="sr-only" path="adr.ville">
+					<form:label cssClass="col-xs-3 control-label" path="adr.ville">
 						<spring:message code="clientEdit.ville" />
 					</form:label>
-					<form:input cssClass="form-control" path="adr.ville" />
-					<form:errors path="adr.ville" />
+					<div class="col-xs-5">
+						<form:input cssClass="form-control" path="adr.ville" />
+						<form:errors cssClass="text-danger"  path="adr.ville" />
+					</div>
 				</div>
-
-				<td colspan="3"><input type="submit"
+				<div class="form-group">
+				<div class="col-xs-3 text-right">
+				</div>
+				<div class="col-xs-5 text-right">
+				<input class="btn btn-primary" type="submit"
 					value="<spring:message code="clientEdit.save"/>" />
+				</div></div>
+				
 			</form:form>
 		</fieldset>
 	</div>

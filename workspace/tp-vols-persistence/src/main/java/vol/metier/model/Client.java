@@ -9,6 +9,7 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +20,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 @Entity
@@ -218,7 +220,11 @@ public abstract class Client {
 		return true;
 	}
 
-	
+	// Avoir le type de client par la DiscriminatorValue
+	@Transient
+	public String getType() {
+		return this.getClass().getAnnotation(DiscriminatorValue.class).value();
+	}
 	
 
 }
