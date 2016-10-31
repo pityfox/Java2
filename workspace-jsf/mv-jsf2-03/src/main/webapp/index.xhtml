@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+  <f:view locale="#{changeLocale.locale}">
+    <h:head>
+      <title>JSF</title>
+      <h:outputStylesheet library="css" name="styles.css"/>
+    </h:head>
+    <h:body>
+      <h:form id="formulaire">
+        <!-- langues -->
+        <h:panelGrid columns="2">
+          <h:commandLink value="#{msg['form.langue1']}" action="#{changeLocale.setFrenchLocale}"/>
+          <h:commandLink value="#{msg['form.langue2']}" action="#{changeLocale.setEnglishLocale}"/>
+        </h:panelGrid>
+        <h1><h:outputText value="#{msg['form.titre']}"/></h1>
+        <h:panelGrid columnClasses="col1,col2,col3" columns="3" border="1">
+          <!-- entêtes -->
+          <h:outputText value="#{msg['form.headerCol1']}" styleClass="entete"/>
+          <h:outputText value="#{msg['form.headerCol2']}" styleClass="entete"/>
+          <h:outputText value="#{msg['form.headerCol3']}" styleClass="entete"/>
+          <!-- ligne 1 -->
+          <h:outputText value="inputText"  styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.loginPrompt']}"/>
+            <h:inputText id="inputText" value="#{form.inputText}"/>
+          </h:panelGroup>
+          <h:outputText value="#{form.inputText}"/>
+          <!-- ligne 2 -->
+          <h:outputText value="inputSecret"  styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.passwdPrompt']}"/>
+            <h:inputSecret id="inputSecret" value="#{form.inputSecret}"/>
+          </h:panelGroup>
+          <h:outputText value="#{form.inputSecret}"/>
+          <!-- ligne 3 -->
+          <h:outputText value="inputTextArea" styleClass="info"/>          
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.descPrompt']}"/>
+            <h:inputTextarea id="inputTextArea" value="#{form.inputTextArea}" rows="4"/>
+          </h:panelGroup>         
+          <h:outputText value="#{form.inputTextArea}"/>
+          <!-- ligne 4 -->
+          <h:outputText value="selectOneListBox (size=1)" styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectOneListBox1Prompt']}"/>
+            <h:selectOneListbox id="selectOneListBox1" value="#{form.selectOneListBox1}" size="1">
+              <f:selectItem itemValue="1" itemLabel="un"/>
+              <f:selectItem itemValue="2" itemLabel="deux"/>
+              <f:selectItem itemValue="3" itemLabel="trois"/>
+            </h:selectOneListbox>
+          </h:panelGroup>
+          <h:outputText value="#{form.selectOneListBox1}"/>
+          <!-- ligne 5 -->
+          <h:outputText value="selectOneListBox (size=3)" styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectOneListBox2Prompt']}"/>
+            <h:selectOneListbox id="selectOneListBox2" value="#{form.selectOneListBox2}" size="3">
+              <f:selectItem itemValue="1" itemLabel="un"/>
+              <f:selectItem itemValue="2" itemLabel="deux"/>
+              <f:selectItem itemValue="3" itemLabel="trois"/>
+              <f:selectItem itemValue="4" itemLabel="quatre"/>
+              <f:selectItem itemValue="5" itemLabel="cinq"/>
+            </h:selectOneListbox>
+          </h:panelGroup>
+          <h:outputText value="#{form.selectOneListBox2}"/>
+          <!-- ligne 6 -->
+          <h:outputText value="selectManyListBox (size=3)"  styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectManyListBoxPrompt']}"/>
+            <h:selectManyListbox id="selectManyListBox" value="#{form.selectManyListBox}" size="3">
+              <f:selectItem itemValue="1" itemLabel="un"/>
+              <f:selectItem itemValue="2" itemLabel="deux"/>
+              <f:selectItem itemValue="3" itemLabel="trois"/>
+              <f:selectItem itemValue="4" itemLabel="quatre"/>
+              <f:selectItem itemValue="5" itemLabel="cinq"/>
+            </h:selectManyListbox>
+            <p><input type="button" value="#{msg['form.buttonRazText']}" onclick="this.form['formulaire:selectManyListBox'].selectedIndex=-1;" /></p>
+          </h:panelGroup>
+          <h:outputText value="#{form.selectManyListBoxValue}"/>
+          <!-- ligne 7 -->
+          <h:outputText value="selectOneMenu" styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectOneMenuPrompt']}"/>
+            <h:selectOneMenu id="selectOneMenu" value="#{form.selectOneMenu}">
+              <f:selectItem itemValue="1" itemLabel="un"/>
+              <f:selectItem itemValue="2" itemLabel="deux"/>
+              <f:selectItem itemValue="3" itemLabel="trois"/>
+              <f:selectItem itemValue="4" itemLabel="quatre"/>
+              <f:selectItem itemValue="5" itemLabel="cinq"/>
+            </h:selectOneMenu>
+          </h:panelGroup>
+          <h:outputText value="#{form.selectOneMenu}"/>
+          <!-- ligne 8 -->
+          <h:outputText value="selectManyMenu" styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectManyMenuPrompt']}" styleClass="prompt" />
+            <h:selectManyMenu id="selectManyMenu" value="#{form.selectManyMenu}" >
+              <f:selectItem itemValue="1" itemLabel="un"/>
+              <f:selectItem itemValue="2" itemLabel="deux"/>
+              <f:selectItem itemValue="3" itemLabel="trois"/>
+              <f:selectItem itemValue="4" itemLabel="quatre"/>
+              <f:selectItem itemValue="5" itemLabel="cinq"/>
+            </h:selectManyMenu>
+            <p><input type="button" value="#{msg['form.buttonRazText']}" onclick="this.form['formulaire:selectManyMenu'].selectedIndex=-1;" /></p>
+          </h:panelGroup>
+          <h:outputText value="#{form.selectManyMenuValue}" styleClass="prompt"/>
+          <!-- ligne 9 -->
+          <h:outputText value="inputHidden"  styleClass="info"/>
+          <h:inputHidden id="inputHidden" value="#{form.inputHidden}"/>
+          <h:outputText value="#{form.inputHidden}"/>
+          <!-- ligne 10 -->
+          <h:outputText value="selectBooleanCheckbox" styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectBooleanCheckboxPrompt']}" styleClass="prompt" />
+            <h:selectBooleanCheckbox id="selectBooleanCheckbox" value="#{form.selectBooleanCheckbox}"/>
+          </h:panelGroup>
+          <h:outputText value="#{form.selectBooleanCheckbox}"/>
+          <!-- ligne 11 -->
+          <h:outputText value="selectManyCheckbox" styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectManyCheckboxPrompt']}" styleClass="prompt" />
+            <h:selectManyCheckbox id="selectManyCheckbox" value="#{form.selectManyCheckbox}">
+              <f:selectItem itemValue="1" itemLabel="rouge"/>
+              <f:selectItem itemValue="2" itemLabel="bleu"/>
+              <f:selectItem itemValue="3" itemLabel="blanc"/>
+              <f:selectItem itemValue="4" itemLabel="noir"/>
+            </h:selectManyCheckbox>
+          </h:panelGroup>
+          <h:outputText value="#{form.selectManyCheckboxValue}"/>
+          <!-- ligne 12 -->
+          <h:outputText value="selectOneRadio" styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectOneRadioPrompt']}" />
+            <h:selectOneRadio id="selectOneRadio" value="#{form.selectOneRadio}">
+              <f:selectItem itemValue="1" itemLabel="voiture"/>
+              <f:selectItem itemValue="2" itemLabel="vélo"/>
+              <f:selectItem itemValue="3" itemLabel="scooter"/>
+              <f:selectItem itemValue="4" itemLabel="marche"/>
+            </h:selectOneRadio>
+          </h:panelGroup>
+          <h:outputText value="#{form.selectOneRadio}"/>
+        </h:panelGrid>
+        <p>
+          <h:commandButton type="submit" id="submit" value="#{msg['form.submitText']}"/>
+        </p>
+      </h:form>
+    </h:body>
+  </f:view>
+</html>
+

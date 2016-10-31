@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+  <h:head>
+    <title>JSF</title>
+    <h:outputStylesheet library="css" name="styles.css"/>
+  </h:head>
+  <h:body style="background-image: url('${request.contextPath}/resources/images/standard.jpg');">
+    <h2><h:outputText value="#{msg['form.titre']}"/></h2>
+    <h:form id="formulaire">
+      <h:messages globalOnly="true" />
+      <h:panelGrid columns="4" columnClasses="col1,col2,col3,col4" border="1">
+        <!-- ligne 1 -->
+        <h:outputText value="#{msg['saisie.type']}" styleClass="entete"/>
+        <h:outputText value="#{msg['saisie.champ']}" styleClass="entete"/>
+        <h:outputText value="#{msg['saisie.erreur']}" styleClass="entete"/>
+        <h:outputText value="#{msg['bean.valeur']}" styleClass="entete"/>
+        <!-- ligne 2 -->
+        <h:outputText value="#{msg['saisie1.prompt']}"/>
+        <h:inputText id="saisie1" value="#{form.saisie1}" styleClass="saisie"/>
+        <h:message for="saisie1" styleClass="error"/>
+        <h:outputText value="#{form.saisie1}"/>
+        <!-- ligne 3 -->
+        <h:outputText value="#{msg['saisie2.prompt']}" />
+        <h:inputText id="saisie2" value="#{form.saisie2}"  styleClass="saisie"/>
+        <h:message for="saisie2" showSummary="true" showDetail="false" styleClass="error"/>
+        <h:outputText value="#{form.saisie2}"/>
+        <!-- ligne 4 -->
+        <h:outputText value="#{msg['saisie3.prompt']}" />
+        <h:inputText id="saisie3" value="#{form.saisie3}"  styleClass="saisie" required="true" requiredMessage="#{msg['data.required']}" converterMessage="#{msg['integer.required']}"/>
+        <h:message for="saisie3" styleClass="error"/>
+        <h:outputText value="#{form.saisie3}"/>
+        <!-- ligne 5 -->
+        <h:outputText value="#{msg['saisie4.prompt']}" />
+        <h:inputText id="saisie4" value="#{form.saisie4}"  styleClass="saisie" required="true" requiredMessage="#{msg['data.required']}" converterMessage="#{msg['integer.required']}" validatorMessage="#{msg['saisie4.error']}">
+          <f:validateLongRange minimum="1" maximum="10" />
+        </h:inputText>
+        <h:message for="saisie4" styleClass="error"/>
+        <h:outputText value="#{form.saisie4}"/>
+        <!-- ligne 6 -->
+        <h:outputText value="#{msg['saisie5.prompt']}" />
+        <h:inputText id="saisie5" value="#{form.saisie5}"  styleClass="saisie" required="true" requiredMessage="#{msg['data.required']}" converterMessage="#{msg['double.required']}"/>
+        <h:message for="saisie5" styleClass="error"/>
+        <h:outputText value="#{form.saisie5}"/>
+        <!-- ligne 7 -->
+        <h:outputText value="#{msg['saisie6.prompt']}"/>
+        <h:inputText id="saisie6" value="#{form.saisie6}"  styleClass="saisie" required="true" requiredMessage="#{msg['data.required']}" converterMessage="#{msg['double.required']}" validatorMessage="#{msg['saisie6.error']}">
+          <f:validateDoubleRange minimum="0.0"/>
+        </h:inputText>
+        <h:message for="saisie6" styleClass="error"/>
+        <h:outputText value="#{form.saisie6}"/>
+        <!-- ligne 8 -->
+        <h:outputText value="#{msg['saisie7.prompt']}"/>
+        <h:inputText id="saisie7" value="#{form.saisie7}"  styleClass="saisie" required="true" requiredMessage="#{msg['data.required']}" converterMessage="#{msg['double.required']}"/>
+        <h:message for="saisie7" styleClass="error"/>
+        <h:outputText value="#{form.saisie7}"/>
+        <!-- ligne 9 -->
+        <h:outputText value="#{msg['saisie8.prompt']}"/>
+        <h:inputText id="saisie8" value="#{form.saisie8}"  styleClass="saisie" required="true" requiredMessage="#{msg['date.required']}" converterMessage="#{msg['saisie8.error']}">
+          <f:convertDateTime pattern="dd/MM/yyyy"/>
+        </h:inputText>
+        <h:message for="saisie8" styleClass="error"/>
+        <h:outputText value="#{form.saisie8}">
+          <f:convertDateTime pattern="dd/MM/yyyy"/>
+        </h:outputText>
+        <!-- ligne 10 -->
+        <h:outputText value="#{msg['saisie9.prompt']}"/>
+        <h:inputText id="saisie9" value="#{form.saisie9}"  styleClass="saisie" required="true" requiredMessage="#{msg['data.required']}" validatorMessage="#{msg['saisie9.error']}">
+          <f:validateLength minimum="4" maximum="4"/>
+        </h:inputText>
+        <h:message for="saisie9" styleClass="error"/>
+        <h:outputText value="#{form.saisie9}"/>
+        <!-- ligne 10B -->
+        <h:outputText value="#{msg['saisie9B.prompt']}"/>
+        <h:inputText id="saisie9B" value="#{form.saisie9B}"  styleClass="saisie" required="true" requiredMessage="#{msg['data.required']}" validatorMessage="#{msg['saisie9B.error']}">
+          <f:validateRegex pattern="^\s*\d{2}:\d{2}\s*$"/>
+        </h:inputText>
+        <h:message for="saisie9B" styleClass="error"/>
+        <h:outputText value="#{form.saisie9B}"/>
+        <!-- ligne 11 -->
+        <h:outputText value="#{msg['saisie10.prompt']}"/>
+        <h:inputText id="saisie10" value="#{form.saisie10}"  styleClass="saisie" required="true" requiredMessage="#{msg['data.required']}" validator="#{form.validateSaisie10}"/>
+        <h:message for="saisie10" styleClass="error"/>
+        <h:outputText value="#{form.saisie10}"/>
+        <!-- ligne 12 -->
+        <h:outputText value="#{msg['saisie11.prompt']}"/>
+        <h:inputText id="saisie11" value="#{form.saisie11}"  styleClass="saisie" required="true" requiredMessage="#{msg['data.required']}" converterMessage="#{msg['integer.required']}"/>
+        <h:panelGroup>
+          <h:message for="saisie11" styleClass="error"/>
+          <h:outputText value="#{form.errorSaisie11}" styleClass="error"/>
+        </h:panelGroup>
+        <h:outputText value="#{form.saisie11}"/>
+        <!-- ligne 13 -->
+        <h:outputText value="#{msg['saisie12.prompt']}"/>
+        <h:inputText id="saisie12" value="#{form.saisie12}" styleClass="saisie" required="true" requiredMessage="#{msg['data.required']}" converterMessage="#{msg['integer.required']}"/>
+        <h:panelGroup>
+          <h:message for="saisie12" styleClass="error"/>
+          <h:outputText value="#{form.errorSaisie12}" styleClass="error"/>
+        </h:panelGroup>
+        <h:outputText value="#{form.saisie12}"/>
+      </h:panelGrid>
+      <!-- boutons de commande -->
+      <h:panelGrid columns="2">
+        <h:commandButton value="#{msg['submit']}" action="#{form.submit}"/>
+        <h:commandButton value="#{msg['cancel']}" immediate="true" action="#{form.cancel}"/>
+      </h:panelGrid>
+    </h:form>
+  </h:body>
+</html>

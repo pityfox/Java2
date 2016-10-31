@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+  <h:head>
+    <title>JSF</title>
+    <h:outputStylesheet library="css" name="styles.css"/>
+    <script type="text/javascript">
+      function raz(){
+        document.forms['formulaire'].elements['formulaire:combo1'].value="A";
+        document.forms['formulaire'].elements['formulaire:combo2'].value="A1";
+        document.forms['formulaire'].elements['formulaire:saisie1'].value=0;
+        document.forms['formulaire'].submit();
+      }
+    </script>
+
+  </h:head>
+  <h:body style="background-image: url('${request.contextPath}/resources/images/standard.jpg');">
+    <h2><h:outputText value="#{msg['app.titre2']}"/></h2>
+    <h:form id="formulaire">
+      <h:messages globalOnly="true"/>
+      <h:panelGrid columns="4" border="1" columnClasses="col1,col2,col3,col4">
+        <!-- headers -->
+        <h:outputText value="#{msg['saisie.type']}" styleClass="entete"/>
+        <h:outputText value="#{msg['saisie.champ']}" styleClass="entete"/>
+        <h:outputText value="#{msg['saisie.erreur']}" styleClass="entete"/>
+        <h:outputText value="#{msg['bean.valeur']}" styleClass="entete"/>
+        <!-- ligne 1 -->
+        <h:outputText value="#{msg['combo1.prompt']}"/>
+        <h:selectOneMenu id="combo1" value="#{form.combo1}" immediate="true" onchange="submit();" valueChangeListener="#{form.combo1ChangeListener}" styleClass="combo">
+          <f:selectItems value="#{form.combo1Items}"/>
+        </h:selectOneMenu>
+        <h:panelGroup></h:panelGroup>
+        <h:outputText value="#{form.combo1}"/>
+        <!-- ligne 2 -->
+        <h:outputText value="#{msg['combo2.prompt']}"/>
+        <h:selectOneMenu id="combo2" value="#{form.combo2}" styleClass="combo">
+          <f:selectItems value="#{form.combo2Items}"/>
+        </h:selectOneMenu>
+        <h:panelGroup></h:panelGroup>
+        <h:outputText value="#{form.combo2}"/>
+        <!-- ligne 3 -->
+        <h:outputText value="#{msg['saisie1.prompt']}"/>
+        <h:inputText id="saisie1" value="#{form.saisie1}" required="true" requiredMessage="#{msg['data.required']}" styleClass="saisie" converterMessage="#{msg['integer.required']}"/>
+        <h:message for="saisie1" styleClass="error"/>
+        <h:outputText value="#{form.saisie1}"/>
+      </h:panelGrid>
+      <!-- boutons de commande -->
+      <h:panelGrid columns="2" border="0">
+        <h:commandButton value="#{msg['submit']}"/>
+        <h:commandButton value="#{msg['raz']}" onclick='raz()' immediate="true" action="#{form.raz}"/>
+      </h:panelGrid>
+    </h:form>
+  </h:body>
+</html>
+
+
+

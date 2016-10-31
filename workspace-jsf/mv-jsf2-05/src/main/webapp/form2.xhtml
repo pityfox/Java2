@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+  <f:view locale="#{changeLocale.locale}">
+    <h:head>
+      <title>JSF</title>
+      <h:outputStylesheet library="css" name="styles.css"/>
+    </h:head>
+    <h:body style="background-image: url('${request.contextPath}/resources/images/standard.jpg');">
+      <h:form id="formulaire">
+        <h:panelGrid columns="2">
+          <h:commandLink value="#{msg['form.langue1']}" action="#{changeLocale.setFrenchLocale}"/>
+          <h:commandLink value="#{msg['form.langue2']}" action="#{changeLocale.setEnglishLocale}"/>
+        </h:panelGrid>
+        <h1><h:outputText value="#{msg['form2.titre']}"/></h1>
+        <h:panelGrid columnClasses="col1,col2" columns="2" border="1">
+          <h:outputText value="selectOneListBox (size=1)" styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectOneListBox1Prompt']}"/>
+            <h:selectOneListbox id="selectOneListBox1" value="#{form.selectOneListBox1}" size="1">
+              <f:selectItems value="#{form.selectOneListbox1Items}"/>
+            </h:selectOneListbox>
+          </h:panelGroup>
+
+          <h:outputText value="selectOneListBox (size=3)" styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectOneListBox2Prompt']}"/>
+            <h:selectOneListbox id="selectOneListBox2" value="#{form.selectOneListBox2}" size="3">
+              <f:selectItems value="#{form.selectOneListbox2Items}"/>
+            </h:selectOneListbox>
+          </h:panelGroup>
+
+          <h:outputText value="selectManyListBox (size=3)"  styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectManyListBoxPrompt']}"/>
+            <h:selectManyListbox id="selectManyListBox" value="#{form.selectManyListBox}" size="3">
+              <f:selectItems value="#{form.selectManyListBoxItems}"/>
+            </h:selectManyListbox>
+            <p><input type="button" value="#{msg['form.buttonRazText']}" onclick="this.form['formulaire:selectManyListBox'].selectedIndex=-1;" /></p>
+          </h:panelGroup>
+
+          <h:outputText value="selectOneMenu" styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectOneMenuPrompt']}"/>
+            <h:selectOneMenu id="selectOneMenu" value="#{form.selectOneMenu}">
+              <f:selectItems value="#{form.selectOneMenuItems}"/>
+            </h:selectOneMenu>
+          </h:panelGroup>
+
+          <h:outputText value="selectManyMenu" styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectManyMenuPrompt']}" styleClass="prompt" />
+            <h:selectManyMenu id="selectManyMenu" value="#{form.selectManyMenu}" >
+              <f:selectItems value="#{form.selectManyMenuItems}"/>
+            </h:selectManyMenu>
+            <p><input type="button" value="#{msg['form.buttonRazText']}" onclick="this.form['formulaire:selectManyMenu'].selectedIndex=-1;" /></p>
+          </h:panelGroup>
+
+          <h:outputText value="inputHidden"  styleClass="info"/>
+          <h:inputHidden id="inputHidden" value="#{form.inputHidden}"/>
+        </h:panelGrid>
+
+        <h:panelGrid columns="6">
+          <h:commandLink value="1" action="form1"/>
+          <h:commandLink value="2" action="#{form.doAction2}"/>
+          <h:commandLink value="3" action="form3"/>
+          <h:commandLink value="4" action="#{form.doAction4}"/>
+          <h:commandLink value="#{msg['form.pagealeatoireLink']}" action="#{form.doAlea}"/>
+          <h:commandLink value="#{msg['form.exceptionLink']}" action="#{form.throwException}"/>
+        </h:panelGrid>
+      </h:form>
+    </h:body>
+  </f:view>
+</html>

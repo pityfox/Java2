@@ -1,0 +1,39 @@
+/* 
+    Document   : style
+    Created on : 3 août 2007, 14:13
+    Author     : ST
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+.body{
+   background-image: url(/ressources/standard.jpg)
+}
+
+.info{
+   font-family: Arial,Helvetica,sans-serif;
+   font-size: 14px;
+   font-weight: bold
+}
+
+.col1{
+   background-color: #ccccff
+}
+
+.col2{
+   background-color: #ffcccc
+}
+
+.col3{
+   background-color: #ffcc66
+}
+
+.entete{
+   font-family: 'Times New Roman',Times,serif;
+   font-size: 14px;
+   font-weight: bold
+}

@@ -1,6 +1,7 @@
 package vol.metier.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,17 +14,23 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table (name="Reservations")
 public class Reservation {
 
-	private long id;
+	private Long id;
 	private Date date;
-	private int numero;
+	private Integer numero;
 	private Passager passager;
 	private Vol vol;
-	private int version;
+	private Integer version;
 	
 	private Client client;
 	
@@ -31,16 +38,20 @@ public class Reservation {
 	}
 
 	@Id  @GeneratedValue
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	@Column(name="XDate")
-	@Temporal(TemporalType.TIMESTAMP)
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Past(message="{reservation.date.past}")
+	@NotNull(message="{reservation.date.notNull}")
 	public Date getDate() {
 		return date;
 	}
@@ -49,12 +60,13 @@ public class Reservation {
 		this.date = date;
 	}
 
-	@Column(name="Numero")
-	public int getNumero() {
+	@Column(name="Numero", length = 30)
+	@NotNull(message="{reservation.numero.notNull}")
+		public Integer getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 
@@ -80,11 +92,11 @@ public class Reservation {
 
 	@Version
 	@Column(name="Version")
-	public int getVersion() {
+	public Integer getVersion() {
 		return version;
 	}
 
-	public void setVersion(int version) {
+	public void setVersion(Integer version) {
 		this.version = version;
 	}
 
@@ -98,58 +110,6 @@ public class Reservation {
 		this.client = client;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((client == null) ? 0 : client.hashCode());
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + numero;
-		result = prime * result
-				+ ((passager == null) ? 0 : passager.hashCode());
-		result = prime * result + version;
-		result = prime * result + ((vol == null) ? 0 : vol.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Reservation other = (Reservation) obj;
-		if (client == null) {
-			if (other.client != null)
-				return false;
-		} else if (!client.equals(other.client))
-			return false;
-		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
-			return false;
-		if (id != other.id)
-			return false;
-		if (numero != other.numero)
-			return false;
-		if (passager == null) {
-			if (other.passager != null)
-				return false;
-		} else if (!passager.equals(other.passager))
-			return false;
-		if (version != other.version)
-			return false;
-		if (vol == null) {
-			if (other.vol != null)
-				return false;
-		} else if (!vol.equals(other.vol))
-			return false;
-		return true;
-	}
 	
 	
 	

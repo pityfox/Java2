@@ -1,0 +1,23 @@
+.headers {
+   text-align: center;
+   font-style: italic;
+   color: Snow;
+   background: Teal;
+}
+
+.id {
+   height: 25px;
+   text-align: center;
+   background: MediumTurquoise;
+}
+
+.nom {
+   text-align: left;
+   background: PowderBlue;
+}
+.prenom {
+   width: 6em;
+   text-align: left;
+   color: Black;
+   background: MediumTurquoise;
+}

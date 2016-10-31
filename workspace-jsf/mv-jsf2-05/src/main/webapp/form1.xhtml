@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+  <f:view locale="#{changeLocale.locale}">
+    <h:head>
+      <title>JSF</title>
+      <h:outputStylesheet library="css" name="styles.css"/>
+    </h:head>
+    <h:body style="background-image: url('${request.contextPath}/resources/images/standard.jpg');">
+    <h:form id="formulaire">
+        <!-- liens -->
+        <h:panelGrid columns="2">
+          <h:commandLink value="#{msg['form.langue1']}" action="#{changeLocale.setFrenchLocale}"/>
+          <h:commandLink value="#{msg['form.langue2']}" action="#{changeLocale.setEnglishLocale}"/>
+        </h:panelGrid>
+        <h1><h:outputText value="#{msg['form1.titre']}"/></h1>
+        <h:panelGrid columnClasses="col1,col2" columns="2" border="1">
+          <h:outputText value="#{msg['form.headerCol1']}" styleClass="entete"/>
+          <h:outputText value="#{msg['form.headerCol2']}" styleClass="entete"/>
+          <!-- ligne 1 -->
+          <h:outputText value="inputText"  styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.loginPrompt']}"/>
+            <h:inputText id="inputText" value="#{form.inputText}"/>
+          </h:panelGroup>
+          <!-- ligne 2 -->
+          <h:outputText value="inputSecret"  styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.passwdPrompt']}"/>
+            <h:inputSecret id="inputSecret" value="#{form.inputSecret}"/>
+          </h:panelGroup>
+          <!-- ligne 3 -->
+          <h:outputText value="inputTextArea" styleClass="info"/>          
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.descPrompt']}"/>
+            <h:inputTextarea id="inputTextArea" value="#{form.inputTextArea}" rows="4"/>
+          </h:panelGroup>         
+        </h:panelGrid>
+        <!-- liens -->
+        <h:panelGrid columns="6">
+          <h:commandLink value="1" action="form1"/>
+          <h:commandLink value="2" action="#{form.doAction2}"/>
+          <h:commandLink value="3" action="form3"/>
+          <h:commandLink value="4" action="#{form.doAction4}"/>
+          <h:commandLink value="#{msg['form.pagealeatoireLink']}" action="#{form.doAlea}"/>
+          <h:commandLink value="#{msg['form.exceptionLink']}" action="#{form.throwException}"/>
+        </h:panelGrid>
+      </h:form>
+      </h:body>
+  </f:view>
+</html>

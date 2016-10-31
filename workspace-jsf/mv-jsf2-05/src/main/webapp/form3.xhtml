@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+  <f:view locale="#{changeLocale.locale}">
+    <h:head>
+      <title>JSF</title>
+      <h:outputStylesheet library="css" name="styles.css"/>
+    </h:head>
+    <h:body style="background-image: url('${request.contextPath}/resources/images/standard.jpg');">
+    <h:form id="formulaire">
+        <h:panelGrid columns="2">
+          <h:commandLink value="#{msg['form.langue1']}" action="#{changeLocale.setFrenchLocale}"/>
+          <h:commandLink value="#{msg['form.langue2']}" action="#{changeLocale.setEnglishLocale}"/>
+        </h:panelGrid>
+        <h1><h:outputText value="#{msg['form3.titre']}"/></h1>
+        <h:panelGrid columnClasses="col1,col2" columns="2" border="1">
+          <h:outputText value="selectBooleanCheckbox" styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectBooleanCheckboxPrompt']}" styleClass="prompt" />
+            <h:selectBooleanCheckbox id="selectBooleanCheckbox" value="#{form.selectBooleanCheckbox}"/>
+          </h:panelGroup>
+
+          <h:outputText value="selectManyCheckbox" styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectManyCheckboxPrompt']}" styleClass="prompt" />
+            <h:selectManyCheckbox id="selectManyCheckbox" value="#{form.selectManyCheckbox}">
+              <f:selectItems value="#{form.selectManyCheckboxItems}"/>
+            </h:selectManyCheckbox>
+          </h:panelGroup>
+
+          <h:outputText value="selectOneRadio" styleClass="info"/>
+          <h:panelGroup>
+            <h:outputText value="#{msg['form.selectOneRadioPrompt']}" />
+            <h:selectOneRadio id="selectOneRadio" value="#{form.selectOneRadio}">
+              <f:selectItems value="#{form.selectOneRadioItems}"/>
+            </h:selectOneRadio>
+          </h:panelGroup>
+        </h:panelGrid>
+
+        <h:panelGrid columns="6">
+          <h:commandLink value="1" action="form1"/>
+          <h:commandLink value="2" action="#{form.doAction2}"/>
+          <h:commandLink value="3" action="form3"/>
+          <h:commandLink value="4" action="#{form.doAction4}"/>
+          <h:commandLink value="#{msg['form.pagealeatoireLink']}" action="#{form.doAlea}"/>
+          <h:commandLink value="#{msg['form.exceptionLink']}" action="#{form.throwException}"/>
+        </h:panelGrid>
+      </h:form>
+    </h:body>
+  </f:view>
+</html>

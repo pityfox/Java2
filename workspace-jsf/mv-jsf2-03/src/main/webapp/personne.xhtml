@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view locale="#{changeLocale.locale}">
+	<h:head>
+		<title>JSF</title>
+		<h:outputStylesheet library="css" name="styles.css" />
+	</h:head>
+	<h:body>
+		<h:form id="formulaire">
+			<!-- langues -->
+			<h:panelGrid columns="2">
+				<h:commandLink value="#{msg['form.langue1']}"
+					action="#{changeLocale.setFrenchLocale}" />
+				<h:commandLink value="#{msg['form.langue2']}"
+					action="#{changeLocale.setEnglishLocale}" />
+			</h:panelGrid>
+			<h1>
+				<h:outputText value="#{msg['form.titre']}" />
+			</h1>
+			<h:panelGrid columnClasses="col1,col2,col3" columns="3" border="1">
+				<!-- entêtes -->
+				<h:outputText value="#{msg['form.headerCol1']}" styleClass="entete" />
+				<h:outputText value="#{msg['form.headerCol2']}" styleClass="entete" />
+				<h:outputText value="#{msg['form.headerCol3']}" styleClass="entete" />
+				
+				
+				<!-- ligne 1 -->
+				<h:outputText value="inputHidden id" styleClass="info" />
+				<h:inputHidden id="id" value="#{personneBean.id}" />
+				<h:outputText value="#{personneBean.id}" />
+
+				<h:outputText value="Titre" />
+				<h:panelGroup>
+					<h:outputText value="#{msg['form.selectOneListBox2Prompt']}" />
+					<p:selectOneMenu id="titre"
+						value="#{personneBean.titre}" size="3">
+						<f:selectItem itemValue="1" itemLabel="Mr" />
+						<f:selectItem itemValue="2" itemLabel="Mme" />
+						<f:selectItem itemValue="3" itemLabel="Mlle" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:outputText value="#{personneBean.titre}" />
+
+
+				<h:outputText value="Nom" />
+				<h:panelGroup>
+					<h:outputText value="Nom" />
+					<p:inputText  id="nom" value="#{personneBean.nom}" />
+				</h:panelGroup>
+				<h:outputText value="#{personneBean.nom}" />
+
+
+				<h:outputText value="Prénom" />
+				<h:panelGroup>
+					<h:outputText value="Prénom" />
+					<p:inputText id="prenom" value="#{personneBean.prenom}" />
+				</h:panelGroup>
+				<h:outputText value="#{personneBean.prenom}" />
+
+
+				<h:outputText value="Âge" />
+				<h:panelGroup>
+					<h:outputText value="Âge" />
+					<p:inputText id="age" value="#{personneBean.age}" />
+				</h:panelGroup>
+				<h:outputText value="#{personneBean.age}" />
+
+				<h:outputText value="Marié" />
+				<h:panelGroup>
+					<h:outputText value="Marié" />
+					<p:selectBooleanCheckbox id="marie" value="#{personneBean.marie}" />
+				</h:panelGroup>
+				<h:outputText value="#{personneBean.marie}" />
+
+				<h:outputText value="Statut" styleClass="info" />
+				<h:panelGroup>
+					<h:outputText value="Statut" />
+					<p:selectOneRadio id="statut"
+						value="#{personneBean.statut}">
+						<f:selectItem itemValue="1" itemLabel="Sans emploi" />
+						<f:selectItem itemValue="2" itemLabel="En activité" />
+						<f:selectItem itemValue="3" itemLabel="Retraité" />
+					</p:selectOneRadio>
+				</h:panelGroup>
+				<h:outputText value="#{personneBean.statut}" />
+
+			</h:panelGrid>
+			<p>
+				<h:commandButton type="submit" id="submit"
+					value="#{msg['form.submitText']}" />
+			</p>
+		</h:form>
+	</h:body>
+</f:view>
+</html>
+

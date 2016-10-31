@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+  <h:head>
+    <title>JSF</title>
+    <h:outputStylesheet library="css" name="styles.css"/>
+  </h:head>
+  <h:body style="background-image: url('${request.contextPath}/resources/images/standard.jpg');">
+    <h2><h:outputText value="#{msg['app.titre2']}"/></h2>
+    <h:form id="formulaire">
+      <h:dataTable value="#{form.personnes}" var="personne" headerClass="headers" columnClasses="id,nom,prenom">
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg['personnes.headers.id']}"/>
+          </f:facet>
+          <h:outputText value="#{personne.id}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg['personnes.headers.nom']}"/>
+          </f:facet>
+          <h:outputText value="#{personne.nom}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg['personnes.headers.prenom']}"/>
+          </f:facet>
+          <h:outputText value="#{personne.prénom}"/>
+        </h:column>
+        <h:column>
+          <h:commandLink value="Retirer" action="#{form.retirerPersonne}">
+            <f:setPropertyActionListener target="#{form.personneId}" value="#{personne.id}"/>
+          </h:commandLink>
+        </h:column>
+      </h:dataTable>
+    </h:form>
+  </h:body>
+</html>
+
+
+
