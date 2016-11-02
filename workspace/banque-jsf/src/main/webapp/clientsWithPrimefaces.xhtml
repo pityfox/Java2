@@ -16,7 +16,7 @@
 	</h2>
 	<h:form id="formulaire">
 		 <p:contextMenu for="clients">
-	    	 <p:menuitem value="Editer"  icon="ui-icon-edit" action="clientEdit" ajax="false"/>
+	    	 <p:menuitem value="Editer"  icon="ui-icon-edit" action="clientEditWithPrimefaces" ajax="false"/>
 	        <p:menuitem value="Supprimer" icon="ui-icon-close" actionListener="#{clientBean.delete}" ajax="false"/>
 	    </p:contextMenu>
 		<p:dataTable id="clients" value="#{clientBean.clients}" var="client" rowKey="#{client.id}" selection="#{clientBean.selectedClient}" selectionMode="single">
@@ -77,7 +77,7 @@
 				<h:outputText value="#{client.adr.ville}" />
 			</p:column>
 		</p:dataTable>
-		<p:commandButton	 value="Ajouter" action="#{clientBean.add}"/>
+		<p:commandButton	 value="Ajouter" action="#{clientBean.addPrime}"/>
 	</h:form>
 </h:body>
 </html>

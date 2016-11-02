@@ -47,7 +47,7 @@ public class Client {
 	private String commentaire;
 	private Titre titre;
 	private Boolean professionnel;
-	private Adresse adr;
+	private Adresse adr=new Adresse();
 	private Agence agence;
 	// private List<Compte> comptes = new ArrayList<Compte>();
 	private List<ClientCompte> comptes = new ArrayList<ClientCompte>();
@@ -158,7 +158,7 @@ public class Client {
 	@AttributeOverrides({ @AttributeOverride(name = "rue", column = @Column(name = "street", length = 50) ),
 			@AttributeOverride(name = "codePostal", column = @Column(name = "zipcode", length = 10) ),
 			@AttributeOverride(name = "ville", column = @Column(name = "city", length = 50) ) })
-	@Valid
+	//@Valid
 	public Adresse getAdr() {
 		return adr;
 	}

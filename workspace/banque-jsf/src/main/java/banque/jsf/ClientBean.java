@@ -1,5 +1,6 @@
 package banque.jsf;
 
+import java.nio.channels.SelectableChannel;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import banque.dao.ClientDao;
+import banque.model.Adresse;
 import banque.model.Client;
 import banque.model.Titre;
 
@@ -49,13 +51,23 @@ public class ClientBean {
 		return "clientEdit";
 	}
 
+	public String addPrime() {
+		clientId=null;
+		selectedClient=new Client();
+//		selectedClient.setAdr(new Adresse());
+		return "clientEditWithPrimefaces";
+	}
+	
 	public String edit() {
 		this.selectedClient = clientDao.find(clientId);
+		if (selectedClient.getAdr()==null)
+			selectedClient.setAdr(new Adresse());
 
 		return "clientEdit";
 	}
 
 	public String save() {
+		
 		if (selectedClient.getId() != null) {
 			clientDao.update(selectedClient);
 		} else {
@@ -65,6 +77,16 @@ public class ClientBean {
 		return "clients";
 	}
 
+	public String savePrime() {
+		if (selectedClient.getId() != null) {
+			clientDao.update(selectedClient);
+		} else {
+			clientDao.create(selectedClient);
+		}
+
+		return "clientsWithPrimefaces";
+	}
+	
 	public String delete(Long id) {
 		selectedClient = clientDao.find(id);
 
