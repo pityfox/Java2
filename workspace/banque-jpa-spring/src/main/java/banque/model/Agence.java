@@ -8,7 +8,6 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
-import javax.validation.Valid;
 
 @Entity
 // @IdClass(AgenceId.class)
@@ -50,7 +49,6 @@ public class Agence {
 	// }
 
 	@EmbeddedId
-	@Valid
 	public AgenceId getId() {
 		return id;
 	}
@@ -85,7 +83,6 @@ public class Agence {
 	}
 
 	@Embedded
-	@Valid
 	public Adresse getAdresse() {
 		return adresse;
 	}

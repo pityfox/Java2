@@ -26,15 +26,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRegistry;
 
-import org.hibernate.validator.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -46,9 +42,11 @@ public class Client {
 	private int version;
 	private String nom;
 	private String prenom;
+	private String email;
 	private Date dtNaissance;
 	private String commentaire;
 	private Titre titre;
+	private Boolean professionnel;
 	private Adresse adr;
 	private Agence agence;
 	// private List<Compte> comptes = new ArrayList<Compte>();
@@ -84,8 +82,8 @@ public class Client {
 	}
 
 	@Column(name = "lastname", length = 100)
-	@Size(min = 1, message="{client.nom.required}")
-	@Pattern(regexp="^[A-Z]+.*", message="{client.nom.firstCaps}")
+	@Size(min = 1, message = "{client.nom.required}")
+	@Pattern(regexp = "^[A-Z]+.*", message = "Le nom doit commencer par une majuscule")
 	public String getNom() {
 		return nom;
 	}
@@ -95,7 +93,7 @@ public class Client {
 	}
 
 	@Column(name = "firstname", length = 100)
-	@Size(min=2, message="{client.prenom.minSize}")
+	@Size(min = 2, message = "Le prénom doit comporter au moins 2 caractères")
 	public String getPrenom() {
 		return prenom;
 	}
@@ -104,11 +102,19 @@ public class Client {
 		this.prenom = prenom;
 	}
 
+	@Column(name = "email", length = 255)
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "birthdate")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@NotNull(message="{client.birthDate.required}")
-	@Past(message="{client.birthDate.past}")
+	@Past(message = "La date de naissance doit être inférieure à la date du jour")
 	public Date getDtNaissance() {
 		return dtNaissance;
 	}
@@ -130,13 +136,22 @@ public class Client {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "title", length = 10)
-	@NotNull(message="{client.titre.required}")
+	@NotNull(message = "{client.titre.required}")
 	public Titre getTitre() {
 		return titre;
 	}
 
 	public void setTitre(Titre titre) {
 		this.titre = titre;
+	}
+
+	@Column(name="profesional")
+	public Boolean getProfessionnel() {
+		return professionnel;
+	}
+
+	public void setProfessionnel(Boolean professionnel) {
+		this.professionnel = professionnel;
 	}
 
 	@Embedded
