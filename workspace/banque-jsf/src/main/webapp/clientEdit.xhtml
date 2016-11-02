@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view>
+	<h:head>
+		<title>Edition du client</title>
+	</h:head>
+	<h:body>
+		<h:form id="formulaire">
+			<h:inputHidden value="#{clientBean.selectedClient.id}"/>
+			<h:inputHidden value="#{clientBean.selectedClient.version}"/>
+			<h:panelGrid columns="3" border="1">
+
+				<h:outputText value="Titre" styleClass="info" />
+				<h:selectOneListbox id="titre" value="#{clientBean.selectedClient.titre}" size="1" required="true" requiredMessage="La civilité est obligatoire">
+					<f:selectItem itemLabel="Sélectionner"/>
+					<f:selectItems value="#{clientBean.titres}" var="titre" itemValue="#{titre}" itemLabel="#{msg[titre.label]}"/>	
+				</h:selectOneListbox>
+				<h:message for="titre"/>
+
+				<h:outputText value="Nom" styleClass="info" />
+				<h:inputText id="nom" value="#{clientBean.selectedClient.nom}" required="true" requiredMessage="Le nom est obligatoire" validatorMessage="Le nom doit comporter 3 caractères minimum">
+					<f:validateLength minimum="2"/>
+				</h:inputText>
+				<h:message for="nom"/>
+	
+				<h:outputText value="Prénom" styleClass="info" />
+				<h:inputText id="prenom" value="#{clientBean.selectedClient.prenom}"/>
+				<h:message for="prenom"/>
+
+				<h:outputText value="Date de naissance" styleClass="info" />
+				<h:inputText id="dtNaissance" value="#{clientBean.selectedClient.dtNaissance}" converterMessage="Date invalide !">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:inputText>
+				<h:message for="dtNaissance"/>
+				
+				<h:outputText value="Email" styleClass="info" />
+				<h:inputText id="email" value="#{clientBean.selectedClient.email}" required="true" validatorMessage="Email invalide !">
+					<f:validateRegex pattern="[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}"/>
+				</h:inputText>
+				<h:message for="email"/>
+				
+				<h:outputText value="professionnel" styleClass="info" />
+				<h:selectBooleanCheckbox id="professionnel" value="#{clientBean.selectedClient.professionnel}"/>
+				<h:message for="professionnel"/>
+				
+				<h:outputText value="Rue"/>
+				<h:inputText id="rue" value="#{clientBean.selectedClient.adr.rue}"/>
+				<h:message for="rue"/>
+				
+<!-- 				<h:outputText value="Code postal"/> -->
+<!-- 				<h:inputText id="codePostal" value="#{clientBean.selectedClient.adr.codePostal}"/> -->
+<!-- 				<h:message for="codePostal"/> -->
+				
+				<h:outputText value="Ville"/>
+				<h:inputText id="ville" value="#{clientBean.selectedClient.adr.ville}"/>
+				<h:message for="ville"/>
+			</h:panelGrid>
+			<p>
+				<h:commandButton type="submit" id="submit" action="#{clientBean.save}"
+					value="Valider" />
+				<h:commandButton id="retour" action="clients" immediate="true"
+					value="Retour" />
+			</p>
+		</h:form>
+	</h:body>
+</f:view>
+</html>
+

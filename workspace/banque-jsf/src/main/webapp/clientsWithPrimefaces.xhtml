@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Liste des clients</title>
+	<h:outputStylesheet library="css" name="styles.css" />
+</h:head>
+<h:body
+	style="background-image: url('${request.contextPath}/resources/images/standard.jpg');">
+	<h2>
+		<p:outputLabel value="Liste des clients" />
+	</h2>
+	<h:form id="formulaire">
+		 <p:contextMenu for="clients">
+	    	 <p:menuitem value="Editer"  icon="ui-icon-edit" action="clientEdit" ajax="false"/>
+	        <p:menuitem value="Supprimer" icon="ui-icon-close" actionListener="#{clientBean.delete}" ajax="false"/>
+	    </p:contextMenu>
+		<p:dataTable id="clients" value="#{clientBean.clients}" var="client" rowKey="#{client.id}" selection="#{clientBean.selectedClient}" selectionMode="single">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Titre" />
+				</f:facet>
+				<h:outputText value="#{msg[client.titre.label]}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Nom" />
+				</f:facet>
+				<h:outputText value="#{client.nom}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Prénom" />
+				</f:facet>
+				<h:outputText value="#{client.prenom}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Date de naissance" />
+				</f:facet>
+				<h:outputText value="#{client.dtNaissance}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Email" />
+				</f:facet>
+				<h:outputText value="#{client.email}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Professionnel" />
+				</f:facet>
+				<h:outputText value="#{client.professionnel}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Rue" />
+				</f:facet>
+				<h:outputText value="#{client.adr.rue}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Code postal" />
+				</f:facet>
+				<h:outputText value="#{client.adr.codePostal}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Ville" />
+				</f:facet>
+				<h:outputText value="#{client.adr.ville}" />
+			</p:column>
+		</p:dataTable>
+		<p:commandButton	 value="Ajouter" action="#{clientBean.add}"/>
+	</h:form>
+</h:body>
+</html>
+
+
+
