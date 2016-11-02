@@ -9,7 +9,6 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,29 +19,23 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 import javax.persistence.Version;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name= "Client", length=10, discriminatorType = DiscriminatorType.STRING)
 public abstract class Client {
 
-	private Long id;
+	private long id;
 	private String nom;
-	private Integer numeroTel;
-	private Integer numeroFax;
+	private int numeroTel;
+	private int numeroFax;
 	private String email;
 	private Login login;
 	private Adresse adresse;
 	private List<Reservation> reservations;
 	//private Set<Reservation> reservations = new HashSet<Reservation>();
-	private Integer version;
+	private int version;
 	
 
 	public Client() {
@@ -57,16 +50,15 @@ public abstract class Client {
 
 
 	@Id @GeneratedValue
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
 	@Column(name="Nom",length=50)
-	@NotEmpty(message="{client.nom.notNull}")
 	public String getNom() {
 		return nom;
 	}
@@ -76,26 +68,24 @@ public abstract class Client {
 	}
 
 	@Column(name="NumeroTel")
-	public Integer getNumeroTel() {
+	public int getNumeroTel() {
 		return numeroTel;
 	}
 
-	public void setNumeroTel(Integer numeroTel) {
+	public void setNumeroTel(int numeroTel) {
 		this.numeroTel = numeroTel;
 	}
 
 	@Column(name="NumeroFax")
-	public Integer getNumeroFax() {
+	public int getNumeroFax() {
 		return numeroFax;
 	}
 
-	public void setNumeroFax(Integer numeroFax) {
+	public void setNumeroFax(int numeroFax) {
 		this.numeroFax = numeroFax;
 	}
 
 	@Column(name="Email",length=100)
-	@NotEmpty(message="{client.email.notNull}")
-	@Email(message="{client.email.format}")
 	public String getEmail() {
 		return email;
 	}
@@ -105,9 +95,8 @@ public abstract class Client {
 	}
 
 
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Login_Id")
-	@Valid
 	public Login getLogin() {
 		return login;
 	}
@@ -123,7 +112,6 @@ public abstract class Client {
 		@AttributeOverride(name="ville",column=@Column(name="C_VILLE",length=50)),
 		@AttributeOverride(name="pays",column=@Column(name="C_PAYS",length=50))
 		})
-	@Valid
 	public Adresse getAdresse() {
 		return adresse;
 	}
@@ -155,19 +143,17 @@ public abstract class Client {
 
 	@Version
 	@Column(name="Version")
-	public Integer getVersion() {
+	public int getVersion() {
 		return version;
 	}
 
-	public void setVersion(Integer version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
 
 
-<<<<<<< HEAD
 
 
-=======
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -177,9 +163,10 @@ public abstract class Client {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
-		result = prime * result + ((numeroFax == null) ? 0 : numeroFax.hashCode());
-		result = prime * result + ((numeroTel == null) ? 0 : numeroTel.hashCode());
-		result = prime * result + ((reservations == null) ? 0 : reservations.hashCode());
+		result = prime * result + numeroFax;
+		result = prime * result + numeroTel;
+		result = prime * result
+				+ ((reservations == null) ? 0 : reservations.hashCode());
 		result = prime * result + version;
 		return result;
 	}
@@ -217,15 +204,9 @@ public abstract class Client {
 				return false;
 		} else if (!nom.equals(other.nom))
 			return false;
-		if (numeroFax == null) {
-			if (other.numeroFax != null)
-				return false;
-		} else if (!numeroFax.equals(other.numeroFax))
+		if (numeroFax != other.numeroFax)
 			return false;
-		if (numeroTel == null) {
-			if (other.numeroTel != null)
-				return false;
-		} else if (!numeroTel.equals(other.numeroTel))
+		if (numeroTel != other.numeroTel)
 			return false;
 		if (reservations == null) {
 			if (other.reservations != null)
@@ -236,15 +217,8 @@ public abstract class Client {
 			return false;
 		return true;
 	}
->>>>>>> c2464e63418ab1ddd6e30054737158aab2f3bce3
 
-
-
-	// Avoir le type de client par la DiscriminatorValue
-	@Transient
-	public String getType() {
-		return this.getClass().getAnnotation(DiscriminatorValue.class).value();
-	}
+	
 	
 
 }

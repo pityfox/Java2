@@ -20,51 +20,62 @@
 			<h1>
 				<h:outputText value="#{msg['form.titre']}" />
 			</h1>
-			<h:panelGrid columnClasses="col1,col2,col3" columns="3" border="1">
+			<h:panelGrid columnClasses="col1,col2,col3,col4" columns="4" border="1">
 				<!-- entêtes -->
 				<h:outputText value="#{msg['form.headerCol1']}" styleClass="entete" />
 				<h:outputText value="#{msg['form.headerCol2']}" styleClass="entete" />
 				<h:outputText value="#{msg['form.headerCol3']}" styleClass="entete" />
-				
+				<h:outputText value="#{msg['form.headerCol4']}" styleClass="entete" />
 				
 				<!-- ligne 1 -->
 				<h:outputText value="inputHidden id" styleClass="info" />
 				<h:inputHidden id="id" value="#{personneBean.id}" />
 				<h:outputText value="#{personneBean.id}" />
-
+				<h:message for="id" styleClass="error"/>
+				
 				<h:outputText value="Titre" />
 				<h:panelGroup>
 					<h:outputText value="Titre" />
 					<h:selectOneMenu id="titre"
-						value="#{personneBean.titre}">
+						value="#{personneBean.titre}" required="true" requiredMessage="#{msg['titre.required']}">
+						<f:selectItem value="#{null}" itemLabel="Selection" />
 						<f:selectItems value="#{personneBean.titres}" var="titre" itemValue="#{titre}"  itemLabel="#{titre.label}"/>
 					</h:selectOneMenu>
 				</h:panelGroup>
 				<h:outputText value="#{personneBean.titre}" />
-
+				<h:message  for="titre" styleClass="error"/>
 
 				<h:outputText value="Nom" />
 				<h:panelGroup>
 					<h:outputText value="Nom" />
-					<h:inputText  id="nom" value="#{personneBean.nom}" />
+					<h:inputText  id="nom" value="#{personneBean.nom}" required="true">
+						<f:validateRegex pattern="(^[A-Z]+[a-zA-Z]*)" />
+					</h:inputText>
 				</h:panelGroup>
 				<h:outputText value="#{personneBean.nom}" />
+				<h:message for="nom" styleClass="error"/>
 
 
 				<h:outputText value="Prénom" />
 				<h:panelGroup>
-					<h:outputText value="Prénom" />
-					<h:inputText id="prenom" value="#{personneBean.prenom}" />
+					<h:outputText value="Prénom"/>
+					<h:inputText id="prenom" value="#{personneBean.prenom}" required="true">
+						<f:validateRegex pattern="([a-zA-Z]{2}+[a-zA-Z]*)" />
+					</h:inputText>
 				</h:panelGroup>
 				<h:outputText value="#{personneBean.prenom}" />
+				<h:message for="prenom" styleClass="error"/>
 
 
 				<h:outputText value="Âge" />
 				<h:panelGroup>
 					<h:outputText value="Âge" />
-					<h:inputText id="age" value="#{personneBean.age}" />
+					<h:inputText id="age" value="#{personneBean.age}" required="true">
+						<f:validateLongRange minimum="0" maximum="100" />
+					</h:inputText>
 				</h:panelGroup>
 				<h:outputText value="#{personneBean.age}" />
+				<h:message for="age" styleClass="error"/>
 
 				<h:outputText value="Marié" />
 				<h:panelGroup>
@@ -72,6 +83,7 @@
 					<h:selectBooleanCheckbox id="marie" value="#{personneBean.marie}" />
 				</h:panelGroup>
 				<h:outputText value="#{personneBean.marie}" />
+				<h:message for="marie" styleClass="error"/>
 
 				<h:outputText value="Statut" styleClass="info" />
 				<h:panelGroup>
@@ -84,6 +96,7 @@
 					</h:selectOneRadio>
 				</h:panelGroup>
 				<h:outputText value="#{personneBean.statut}" />
+				<h:message for="statut" styleClass="error"/>
 
 			</h:panelGrid>
 			<p>
