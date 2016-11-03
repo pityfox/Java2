@@ -47,7 +47,7 @@ public class Client {
 	private String commentaire;
 	private Titre titre;
 	private Boolean professionnel;
-	private Adresse adr=new Adresse();
+	private Adresse adr;
 	private Agence agence;
 	// private List<Compte> comptes = new ArrayList<Compte>();
 	private List<ClientCompte> comptes = new ArrayList<ClientCompte>();

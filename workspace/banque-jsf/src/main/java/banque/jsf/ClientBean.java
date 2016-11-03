@@ -3,6 +3,8 @@ package banque.jsf;
 import java.nio.channels.SelectableChannel;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,12 @@ public class ClientBean {
 
 	private Client selectedClient = new Client();
 
+	// Instancialise un obket adresse que JSF fait pas auto
+	@PostConstruct
+	public void init(){
+		selectedClient.setAdr(new Adresse());
+	}
+	
 	public List<Client> getClients() {
 		return clientDao.findAll();
 	}
@@ -52,7 +60,6 @@ public class ClientBean {
 	}
 
 	public String addPrime() {
-		clientId=null;
 		selectedClient=new Client();
 //		selectedClient.setAdr(new Adresse());
 		return "clientEditWithPrimefaces";
