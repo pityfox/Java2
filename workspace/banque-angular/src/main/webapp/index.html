@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html ng-app="banque">
+<head>
+<meta charset="ISO-8859-1">
+<title>{{'TITLE' | translate}}</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"></link>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular-translate.min.js"></script>
+<script type="text/javascript" src="js/angular-translate-loader-static-files.min.js"></script>
+<script type="text/javascript" src="js/app.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/controllers/client.js" charset="utf-8"></script>
+</head>
+<body>
+
+	<div ng-controller="TranslateController as translateCtrl">
+		<button ng-click="translateCtrl.changeLanguage('en')"
+			translate="BUTTON_EN"></button>
+		<button ng-click="translateCtrl.changeLanguage('fr')"
+			translate="BUTTON_FR"></button>
+	</div>
+
+	<section ng-controller="PanelController as panel">
+		<ul class="nav nav-pills">
+			<li ng-class="{active:panel.isSet('client')}"><a href
+				ng-click="panel.setTab('client')">Client</a></li>
+			<li ng-class="{active:panel.isSet('agence')}"><a href
+				ng-click="panel.setTab('agence')">Agence</a></li>
+		</ul>
+
+		<div class="container" ng-controller="ClientController as clientCtrl"
+			ng-show="panel.isSet('client')">
+			<h2>Liste des clients</h2>
+			<table class="table table-striped">
+				<tr>
+					<th>Id</th>
+					<th>Titre</th>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Date de naissance</th>
+					<th>Email</th>
+					<th>Professionnel ?</th>
+					<th>Rue</th>
+					<th>Code postal</th>
+					<th>Ville</th>
+					<th colspan="2"></th>
+				</tr>
+
+
+				<tr ng-repeat="client in clientCtrl.clients">
+					<td>{{client.id}}</td>
+					<td>{{client.titre}}</td>
+					<td>{{client.nom}}</td>
+					<td>{{client.prenom}}</td>
+					<td>{{client.dtNaissance | date:'dd/MM/yyyy'}}</td>
+					<td>{{client.email}}</td>
+					<td>{{client.professionnel}}</td>
+					<td>{{client.adresse.rue}}</td>
+					<td>{{client.adresse.codePostal}}</td>
+					<td>{{client.adresse.ville}}</td>
+					<td><a class="btn btn-info btn-xs"
+						ng-click="clientCtrl.edit(client.id)">Editer</a></td>
+					<td><a class="btn btn-info btn-xs"
+						ng-click="clientCtrl.remove(client.id)">Supprimer</a></td>
+				</tr>
+
+				<tr>
+					<td colspan="13"><a class="btn btn-info"
+						ng-click="clientCtrl.add()">Ajouter un client</a></td>
+				</tr>
+			</table>
+
+			<fieldset ng-show="clientCtrl.client">
+				<legend>Edition du client</legend>
+				<form method="post" ng-submit="clientCtrl.save()">
+					<div class="form-group">
+						<label for="id">Id</label> <input type="number" id="id"
+							ng-model="clientCtrl.client.id" />
+					</div>
+					<div class="form-group">
+						<label for="titre">Titre</label> <input type="text"
+							id="titre" ng-model="clientCtrl.client.titre" />
+					</div>
+					<div class="form-group">
+						<label for="nom">Nom</label> <input type="text" id="nom"
+							ng-model="clientCtrl.client.nom" />
+					</div>
+					<div class="form-group">
+						<label for="prenom">Prénom</label> <input type="text" id="prenom"
+							ng-model="clientCtrl.client.prenom" />
+					</div>
+					<div class="form-group">
+						<label for="dtNaissance">Date de naissance</label> <input
+							type="date" id="dtNaissance"
+							ng-model="clientCtrl.client.dtNaissance" />
+					</div>
+					<div class="form-group">
+						<label for="email">Email</label> <input type="email" id="email"
+							ng-model="clientCtrl.client.email" />
+					</div>
+					<div class="form-group">
+						<label for="professionnel">Professionnel</label> <input
+							type="checkbox" id="professionnel"
+							ng-model="clientCtrl.client.professionnel" />
+					</div>
+					<div class="form-group">
+						<label for="adresse.rue">Rue</label> <input type="text"
+							id="adresse.rue" ng-model="clientCtrl.client.adresse.rue" />
+					</div>
+					<div class="form-group">
+						<label for="adresse.codePostal">Code postal</label> <input
+							type="text" id="adresse.codePostal"
+							ng-model="clientCtrl.client.adresse.codePostal" />
+					</div>
+					<div class="form-group">
+						<label for="adresse.ville">Ville</label> <input type="text"
+							id="adresse.ville" ng-model="clientCtrl.client.adresse.ville" />
+					</div>
+					<input type="submit" value="Valider" class="btn btn-default" />
+				</form>
+			</fieldset>
+		</div>
+	</section>
+</body>
+</html>

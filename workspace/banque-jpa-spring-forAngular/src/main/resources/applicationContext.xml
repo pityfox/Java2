@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<context:annotation-config/>
+	
+	<!-- Activation annotations et scan des classes du package formation.dao -->
+	<context:component-scan base-package="banque.dao"/>
+
+	<!-- Charge en mémoire le contenu du fichier sgbd.properties -->
+	<context:property-placeholder location="classpath:sgbd.properties"/>
+	
+	<!-- Création d'une dataSource DBCP (Connection Pooling) -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${db.driver}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.user}"/>
+        <property name="password" value="${db.password}"/>
+        <property name="initialSize" value="${db.initialSize}"/>
+        <property name="maxActive" value="${db.maxActive}"/>
+    </bean>
+	
+	<!-- Création d'un entityManagerFactory local à partir de la dataSource     -->
+    <bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="banque.model" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="${db.dialect}" />
+				<property name="showSql" value="true" />
+				<property name="generateDdl" value="true" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- Création du transactionManager pour JPA avec entityManagerFactory	 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<!-- Activation des annotations @Transactionnal avec transactionManager	 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- Activation de la translation d'exception -->
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor">
+	</bean>
+	
+<!-- 	<bean id="agenceDao" class="banque.dao.AgenceDaoJpa"> -->
+<!-- 		<constructor-arg ref="clientDao"/> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="clientDao" class="banque.dao.ClientDaoJpa"> -->
+<!-- 		<property name="entityManagerFactory" ref="entityManagerFactory"/> -->
+<!-- 		<property name="clientCompteDao" ref="clientCompteDao"/> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="compteDao" class="banque.dao.CompteDaoJpa"/> -->
+<!-- 	<bean id="clientCompteDao" class="banque.dao.ClientCompteDaoJpa"/> -->
+
+
+	
+
+</beans>
