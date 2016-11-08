@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 // @IdClass(AgenceId.class)
 public class Agence {
@@ -91,6 +93,7 @@ public class Agence {
 		this.adresse = adresse;
 	}
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "agence")
 	public List<Client> getClients() {
 		return clients;

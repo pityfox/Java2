@@ -5,9 +5,11 @@
 		var self = this;
 		
 		self.clients = [];
-		
 		self.client = null;
 		self.civilites = [];
+		self.agences = [];
+		self.agencesIds = [];
+		self.agenceId = null;
 		
 		self.list = function() {
 			$http({
@@ -23,6 +25,25 @@
 		self.add = function() {
 			self.client={};
 			
+			$http({
+				method : 'GET',
+				url : 'services/civilites/'
+			}).then(function successCallback(response) {
+				self.civilites = response.data;
+				console.log(self.civilites);
+			}, function errorCallback(response) {
+
+			});
+			
+			$http({
+				method : 'GET',
+				url : 'services/agence/'
+			}).then(function successCallback(response) {
+				self.agences = response.data;
+				console.log(self.agences);
+			}, function errorCallback(response) {
+
+			});
 		}; 
 		
 		self.save = function() {
@@ -75,7 +96,15 @@
 
 			});
 		
-			
+			$http({
+				method : 'GET',
+				url : 'services/agence/'
+			}).then(function successCallback(response) {
+				self.agences = response.data;
+				console.log(self.agences);
+			}, function errorCallback(response) {
+
+			});
 		}; 
 		
 		self.remove = function(id) {
@@ -90,5 +119,14 @@
 		}; 
 		
 		self.list();
+	});
+	
+	app.directive("client", function(){
+		return {
+			restrict: 'E',
+			templateUrl: "client.html",
+			controller: 'ClientController',
+			controllerAs: 'clientCtrl'
+		};
 	});
 })(); 

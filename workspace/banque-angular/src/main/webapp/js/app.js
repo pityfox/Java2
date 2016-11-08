@@ -1,6 +1,6 @@
 
 (function() {
-	var app = angular.module("banque", [ "pascalprecht.translate", "client" ]);
+	var app = angular.module("banque", [ "pascalprecht.translate", "client", "agence"]);
 
 	app.config(function($translateProvider) {
 		$translateProvider.useStaticFilesLoader({

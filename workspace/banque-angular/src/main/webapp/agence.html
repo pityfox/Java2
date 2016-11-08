@@ -1,0 +1,81 @@
+<div class="container">
+	<h2>Liste des agences</h2>
+	<table class="table table-striped">
+		<tr>
+			<th>N° Agence</th>
+			<th>N° Banque</th>
+			<th>Horaires</th>
+			<th>Libellé</th>
+			<th>Rue</th>
+			<th>Code postal</th>
+			<th>Ville</th>
+			<th colspan="2"></th>
+		</tr>
+
+
+		<tr ng-repeat="agence in agenceCtrl.agences">
+			<td>{{agence.id.numAgence}}</td>
+			<td>{{agence.id.numBanque}}</td>
+			<td>{{agence.horaires}}</td>
+			<td>{{agence.libelle}}</td>
+			<td>{{agence.adresse.rue}}</td>
+			<td>{{agence.adresse.codePostal}}</td>
+			<td>{{agence.adresse.ville}}</td>
+			<td><a class="btn btn-info btn-xs"
+				ng-click="agenceCtrl.edit(agence.id.numAgence, agence.id.numBanque)">Editer</a></td>
+			<td><a class="btn btn-info btn-xs"
+				ng-click="agenceCtrl.remove(agence.id.numAgence, agence.id.numBanque)">Supprimer</a></td>
+		</tr>
+
+		<tr>
+			<td colspan="13"><a class="btn btn-info"
+				ng-click="agenceCtrl.add()">Ajouter un agence</a></td>
+		</tr>
+	</table>
+
+	<fieldset ng-show="agenceCtrl.agence">
+		<legend>Edition de l'agence</legend>
+		<form name="agenceForm" method="post" ng-submit="agenceForm.$valid && agenceCtrl.save()"
+			novalidate>
+
+			<div class="form-group">
+				<label for="id.numAgence">N° Agence</label> <input type="number"
+				class="form-control"
+					id="id.numAgence" name="numAgence" ng-model="agenceCtrl.agence.id.numAgence"
+					ng-readonly="agenceCtrl.mode === 'edit'"
+					required />
+					<p ng-show="agenceForm.numAgence.$invalid" class="help-block">Numéro d'agence requis</p>
+			</div>
+			<div class="form-group">
+				<label for="id.numBanque">N° Banque</label> <input type="number"
+				class="form-control"
+					id="id.numBanque" name="numBanque" ng-model="agenceCtrl.agence.id.numBanque"
+					ng-readonly="agenceCtrl.mode === 'edit'"
+					required />
+					<p ng-show="agenceForm.numBanque.$invalid" class="help-block">Numéro de banque requis</p>
+			</div>
+			<div class="form-group">
+				<label for="horaires">Horaires</label> <input type="text"
+					id="horaires" ng-model="agenceCtrl.agence.horaires" />
+			</div>
+			<div class="form-group">
+				<label for="libelle">Libellé</label> <input type="text" id="libelle"
+					ng-model="agenceCtrl.agence.libelle" />
+			</div>
+			<div class="form-group">
+				<label for="adresse.rue">Rue</label> <input type="text"
+					id="adresse.rue" ng-model="agenceCtrl.agence.adresse.rue" />
+			</div>
+			<div class="form-group">
+				<label for="adresse.codePostal">Code postal</label> <input
+					type="text" id="adresse.codePostal"
+					ng-model="agenceCtrl.agence.adresse.codePostal" />
+			</div>
+			<div class="form-group">
+				<label for="adresse.ville">Ville</label> <input type="text"
+					id="adresse.ville" ng-model="agenceCtrl.agence.adresse.ville" />
+			</div>
+			<input type="submit" value="Valider" class="btn btn-default" />
+		</form>
+	</fieldset>
+</div>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import banque.dao.AgenceDao;
 import banque.dao.ClientDao;
 import banque.model.Client;
 import banque.model.Titre;
@@ -23,6 +24,9 @@ public class ClientRestController {
 	@Autowired
 	private ClientDao clientDao;
 
+	@Autowired
+	private AgenceDao agenceDao;
+	
 	@RequestMapping(value = "/client/", method = RequestMethod.GET)
 	public ResponseEntity<List<Client>> listAll() {
 		List<Client> clients = clientDao.findAll();
@@ -68,6 +72,7 @@ public class ClientRestController {
 			currentClient.setEmail(client.getEmail());
 			currentClient.setProfessionnel(client.getProfessionnel());
 			currentClient.setAdr(client.getAdr());
+			currentClient.setAgence(client.getAgence());
 			currentClient = clientDao.update(currentClient);
 			currentClient = clientDao.find(currentClient.getId());
 			return new ResponseEntity<Client>(currentClient, HttpStatus.OK);
@@ -84,7 +89,7 @@ public class ClientRestController {
 		return new ResponseEntity<Client>(HttpStatus.NO_CONTENT);
 	}
 
-	@RequestMapping(value = "/titres/", method = RequestMethod.GET)
+	@RequestMapping(value = "/civilites/", method = RequestMethod.GET)
 	public ResponseEntity<Titre[]> listCivilite() {
 
 		return new ResponseEntity<Titre[]>(Titre.values(), HttpStatus.OK);

@@ -29,6 +29,7 @@ import javax.persistence.Version;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 @Table(name = "customer")
@@ -160,8 +161,7 @@ public class Client {
 		this.adr = adr;
 	}
 
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumns({ @JoinColumn(referencedColumnName = "numBanque", name = "agence_numBanque"),
 			@JoinColumn(referencedColumnName = "numAgence", name = "agence_numAgence") })
 	public Agence getAgence() {
