@@ -1,0 +1,146 @@
+<div class="container">
+	<h2>Liste des clients</h2>
+	<table class="table table-striped">
+		<tr>
+			<th>Id</th>
+			<th>Type</th>
+			<th>Titre</th>
+			<th>Nom</th>
+			<th>N° Fax</th>
+			<th>N° Tel</th>
+			<th>Email</th>
+			<th colspan="2"></th>
+		</tr>
+
+
+		<tr ng-repeat="client in clientCtrl.clients">
+			<td>{{client.id}}</td>
+			<td>{{client.type}}</td>
+			<td>{{client.titre}}</td>
+			<td>{{client.nom}}</td>
+			<td>{{client.numeroFax}}</td>
+			<td>{{client.numeroTel}}</td>
+			<td>{{client.email}}</td>
+			<td><a class="btn btn-info btn-xs"
+				ng-click="clientCtrl.edit(client.id)">Editer</a></td>
+			<td><a class="btn btn-info btn-xs"
+				ng-click="clientCtrl.remove(client.id)">Supprimer</a></td>
+		</tr>
+
+		<tr>
+			<td colspan="5"><div class="dropdown">
+					<button class="btn btn-info">Ajout Client</button>
+					<div class="dropdown-content">
+						<a ng-click="clientCtrl.addClientPhysique()">Physique</a>
+						<a ng-click="clientCtrl.addClientMoral()">Moral</a>
+						<a ng-click="clientCtrl.addClientEI()">EI</a>
+					</div>
+				</div></td>
+		</tr>
+	</table>
+
+	<fieldset ng-show="clientCtrl.client && clientCtrl.client.type === 'Physique'">
+		<legend>Edition du client Physique</legend>
+		<form method="post" ng-submit="clientCtrl.save()">
+			<input type="hidden" id="id" ng-model="clientCtrl.client.id" />
+			<input type="hidden" id="typeClient" ng-model="clientCtrl.client.type" />
+			<div class="form-group">
+				<label for="titre">Titre</label> <select id="titre"
+					ng-model="clientCtrl.client.titre"
+					ng-options="titre for titre in clientCtrl.titres"></select>
+			</div>
+			<div class="form-group">
+				<label for="nom">Nom</label> <input type="text" id="nom"
+					ng-model="clientCtrl.client.nom" />
+			</div>
+			<div class="form-group">
+				<label for="prenom">Prénom</label> <input type="text" id="prenom"
+					ng-model="clientCtrl.client.prenom" />
+			</div>
+			<div class="form-group">
+				<label for="numeroFax">Fax</label> <input type="text" id="numeroFax"
+					ng-model="clientCtrl.client.numeroFax" />
+			</div>
+			<div class="form-group">
+				<label for="numeroTel">Tel</label> <input type="text" id="numeroTel"
+					ng-model="clientCtrl.client.numeroTel" />
+			</div>
+			<div class="form-group">
+				<label for="email">Email</label> <input type="email" id="email"
+					ng-model="clientCtrl.client.email" />
+			</div>
+
+			<input type="submit" value="Valider" class="btn btn-default" />
+		</form>
+	</fieldset>
+	
+	<fieldset ng-show="clientCtrl.client && clientCtrl.client.type === 'Moral'">
+		<legend>Edition du client Moral</legend>
+		<form method="post" ng-submit="clientCtrl.save()">
+			<input type="hidden" id="id" ng-model="clientCtrl.client.id" />
+			<input type="hidden" id="typeClient" ng-model="clientCtrl.client.type" />
+			<div class="form-group">
+			<div class="form-group">
+				<label for="titre">Titre</label> <select id="titre"
+					ng-model="clientCtrl.client.titre"
+					ng-options="titre for titre in clientCtrl.titres"></select>
+			</div>
+				<label for="nom">Nom</label> <input type="text" id="nom"
+					ng-model="clientCtrl.client.nom" />
+			</div>
+			<div class="form-group">
+				<label for="numeroFax">Fax</label> <input type="text" id="numeroFax"
+					ng-model="clientCtrl.client.numeroFax" />
+			</div>
+			<div class="form-group">
+				<label for="numeroTel">Tel</label> <input type="text" id="numeroTel"
+					ng-model="clientCtrl.client.numeroTel" />
+			</div>
+			<div class="form-group">
+				<label for="siret">Siret</label> <input type="text" id="siret"
+					ng-model="clientCtrl.client.siret" />
+			</div>
+			<div class="form-group">
+				<label for="email">Email</label> <input type="email" id="email"
+					ng-model="clientCtrl.client.email" />
+			</div>
+
+			<input type="submit" value="Valider" class="btn btn-default" />
+		</form>
+	</fieldset>
+	
+	<fieldset ng-show="clientCtrl.client && clientCtrl.client.type === 'EI'">
+		<legend>Edition du client EI</legend>
+		<form method="post" ng-submit="clientCtrl.save()">
+			<input type="hidden" id="id" ng-model="clientCtrl.client.id" />
+			<input type="hidden" id="typeClient" ng-model="clientCtrl.client.type" />
+			<div class="form-group">
+			<div class="form-group">
+				<label for="titre">Titre</label> <select id="titre"
+					ng-model="clientCtrl.client.titre"
+					ng-options="titre for titre in clientCtrl.titres"></select>
+			</div>
+				<label for="nom">Nom</label> <input type="text" id="nom"
+					ng-model="clientCtrl.client.nom" />
+			</div>
+			<div class="form-group">
+				<label for="prenom">Prénom</label> <input type="text" id="prenom"
+					ng-model="clientCtrl.client.prenom" />
+			</div>
+			<div class="form-group">
+				<label for="numeroFax">Fax</label> <input type="text" id="numeroFax"
+					ng-model="clientCtrl.client.numeroFax" />
+			</div>
+			<div class="form-group">
+				<label for="numeroTel">Tel</label> <input type="text" id="numeroTel"
+					ng-model="clientCtrl.client.numeroTel" />
+			</div>
+			<div class="form-group">
+				<label for="email">Email</label> <input type="email" id="email"
+					ng-model="clientCtrl.client.email" />
+			</div>
+
+			<input type="submit" value="Valider" class="btn btn-default" />
+		</form>
+	</fieldset>
+</div>

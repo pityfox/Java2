@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+	<h:head>
+		<title>Edition du client</title>
+	</h:head>
+	<h:body>
+		<p:fieldset legend="Edition client" style="margin-bottom:20px">
+			<h:form id="formulaire">
+				<h:inputHidden value="#{clientBean.selectedClient.id}" />
+				<h:inputHidden value="#{clientBean.selectedClient.version}" />
+				<p:panelGrid columns="3" border="1">
+
+					<h:outputText value="Titre" styleClass="info" />
+					<h:selectOneListbox id="titre"
+						value="#{clientBean.selectedClient.titre}" size="1"
+						required="true" requiredMessage="La civilité est obligatoire">
+						<f:selectItem itemLabel="Sélectionner" />
+						<f:selectItems value="#{clientBean.titres}" var="titre"
+							itemValue="#{titre}" itemLabel="#{msg[titre.label]}" />
+					</h:selectOneListbox>
+					<p:message for="titre" />
+
+					<h:outputText value="Nom" styleClass="info" />
+					<p:inputText id="nom" value="#{clientBean.selectedClient.nom}"
+						required="true" requiredMessage="Le nom est obligatoire"
+						validatorMessage="Le nom doit comporter 3 caractères minimum">
+						<f:validateLength minimum="2" />
+					</p:inputText>
+					<p:message for="nom" />
+
+					<h:outputText value="Prénom" styleClass="info" />
+					<p:inputText id="prenom"
+						value="#{clientBean.selectedClient.prenom}" />
+					<p:message for="prenom" />
+
+					<h:outputText value="Date de naissance" styleClass="info" />
+					<p:inputText id="dtNaissance"
+						value="#{clientBean.selectedClient.dtNaissance}"
+						converterMessage="Date invalide !">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</p:inputText>
+					<p:message for="dtNaissance" />
+
+					<h:outputText value="Email" styleClass="info" />
+					<p:inputText id="email" value="#{clientBean.selectedClient.email}"
+						required="true" validatorMessage="Email invalide !">
+						<f:validateRegex
+							pattern="[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}" />
+					</p:inputText>
+					<p:message for="email" />
+
+					<h:outputText value="professionnel" styleClass="info" />
+					<h:selectBooleanCheckbox id="professionnel"
+						value="#{clientBean.selectedClient.professionnel}" />
+					<p:message for="professionnel" />
+
+					<h:outputText value="Rue" />
+					<p:inputText id="rue" value="#{clientBean.selectedClient.adr.rue}" />
+					<p:message for="rue" />
+
+					<h:outputText value="Code postal" />
+					<p:inputText id="codePostal"
+						value="#{clientBean.selectedClient.adr.codePostal}" />
+					<p:message for="codePostal" />
+
+					<h:outputText value="Ville" />
+					<p:inputText id="ville"
+						value="#{clientBean.selectedClient.adr.ville}" />
+					<p:message for="ville" />
+				</p:panelGrid>
+				<p>
+					<p:commandButton ajax="false" type="submit" id="submit"
+						action="#{clientBean.savePrime}" value="Valider" />
+					<p:commandButton ajax="false" id="retour"
+						action="clientsWithPrimefaces" immediate="true" value="Retour" />
+				</p>
+			</h:form>
+		</p:fieldset>
+	</h:body>
+</f:view>
+</html>
+
